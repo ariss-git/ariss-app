@@ -1,8 +1,15 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+
 const App = () => {
   return (
-    <div className="flex justify-center items-center w-full min-h-screen">
-      App
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/auth/sign-in" element={<Login />} />
+      </Routes>
+    </Router>
   );
 };
 
