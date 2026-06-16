@@ -1,9 +1,12 @@
+import { Button } from "@/components/ui/button";
 import { SignOutButton } from "@clerk/react";
 
 const Dashboard = () => {
   return (
     <div>
-      <SignOutButton />
+      <SignOutButton>
+        <Button>Logout</Button>
+      </SignOutButton>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { useUser } from "@clerk/react";
 import { Loader2 } from "lucide-react";
 import Login from "./pages/Login";
 import SSOCallback from "./callback/sso-callback";
+import MainLayout from "./components/custom/layout/MainLayout";
 
 const App = () => {
   const { isSignedIn, isLoaded } = useUser();
@@ -27,9 +28,11 @@ const App = () => {
         <Route
           path="/"
           element={
-            isSignedIn ? <Dashboard /> : <Navigate to="/login" replace />
+            isSignedIn ? <MainLayout /> : <Navigate to="/login" replace />
           }
-        />
+        >
+          <Route index element={<Dashboard />} />
+        </Route>
         <Route path="/sso-callback" element={<SSOCallback />} />
         <Route
           path="/login"
