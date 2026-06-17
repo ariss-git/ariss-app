@@ -25,6 +25,14 @@ import { useEffect, useState } from "react";
 import DeleteEmployee from "./DeleteEmployee";
 import ApproveEmployee from "./ApproveEmployee";
 import DisapproveEmployee from "./DisapproveEmployee";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 type typeType = "SUPER" | "ADMIN" | "MODERATOR";
 
@@ -57,6 +65,8 @@ const FetchAllEmployee = () => {
   const [users, setUsers] = useState<ArissUser[]>([]);
   const [id, setId] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 20;
 
   const [loading, setLoading] = useState<boolean>(false);
   const [onDeleteOpen, setOnDeleteOpen] = useState<boolean>(false);
@@ -78,6 +88,12 @@ const FetchAllEmployee = () => {
         .toLowerCase()
         .includes(search.toLowerCase()),
   );
+
+  const pagination = filteredUser.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
+  const totalPages = Math.ceil(filteredUser.length / itemsPerPage);
 
   const handleFetchAllEmployee = async () => {
     setLoading(true);
@@ -105,7 +121,10 @@ const FetchAllEmployee = () => {
           className="lg:w-[300px]"
           placeholder="Search for employee..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
         />
 
         <DropdownMenu>
@@ -163,7 +182,7 @@ const FetchAllEmployee = () => {
                     </div>
                   </TableCell>
                 </TableRow>
-              ) : filteredUser.length === 0 ? (
+              ) : pagination.length === 0 ? (
                 <TableRow>
                   <TableCell
                     colSpan={tableHeadings.length + 1}
@@ -173,7 +192,7 @@ const FetchAllEmployee = () => {
                   </TableCell>
                 </TableRow>
               ) : (
-                filteredUser.map((user, index) => (
+                pagination.map((user, index) => (
                   <TableRow
                     key={user.id}
                     className={`hover:bg-zinc-50/50 transition-colors text-center ${
@@ -256,6 +275,37 @@ const FetchAllEmployee = () => {
               )}
             </TableBody>
           </Table>
+
+          {pagination.length !== 0 && (
+            <Pagination className="mt-6 mb-4">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
+                  />
+                </PaginationItem>
+                {Array.from({ length: totalPages }).map((_, index) => (
+                  <PaginationItem key={index}>
+                    <PaginationLink
+                      isActive={currentPage === index + 1}
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      {index + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </div>
       </div>
       <DeleteEmployee
