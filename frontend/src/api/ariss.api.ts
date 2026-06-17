@@ -32,3 +32,11 @@ export const fetchAllArissUsersAPI = async (
     },
   });
 };
+
+export const deleteArissUserAPI = async (id: string, token: string) => {
+  return await axios.delete(`${apiUrl}/ariss/user/delete/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
