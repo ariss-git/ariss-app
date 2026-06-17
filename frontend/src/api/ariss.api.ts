@@ -40,3 +40,27 @@ export const deleteArissUserAPI = async (id: string, token: string) => {
     },
   });
 };
+
+export const approveArissUserAPI = async (
+  id: string,
+  type: "ADMIN" | "MODERATOR",
+  token: string,
+) => {
+  return await axios.patch(
+    `${apiUrl}/ariss/user/approve/${id}`,
+    { type },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+};
+
+export const disapproveArissUserAPI = async (id: string, token: string) => {
+  return await axios.patch(`${apiUrl}/ariss/user/disapprove/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

@@ -9,8 +9,8 @@ arissRouter.get("/users", controller.fetchAllArissUsersController);
 
 arissRouter.delete("/user/delete/:id", controller.deleteUserController);
 
-arissRouter.put("/user/approve/:id", controller.approveArissUserController);
-arissRouter.put(
+arissRouter.patch("/user/approve/:id", controller.approveArissUserController);
+arissRouter.patch(
   "/user/disapprove/:id",
   controller.disapproveArissUserController,
 );
