@@ -23,6 +23,8 @@ import { getToken } from "@clerk/react";
 import { Filter, MoreHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
 import DeleteEmployee from "./DeleteEmployee";
+import ApproveEmployee from "./ApproveEmployee";
+import DisapproveEmployee from "./DisapproveEmployee";
 
 type typeType = "SUPER" | "ADMIN" | "MODERATOR";
 
@@ -33,7 +35,7 @@ const tableHeadings = [
   },
   {
     id: 2,
-    head: "Type",
+    head: "Role",
   },
   {
     id: 3,
@@ -57,6 +59,8 @@ const FetchAllEmployee = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [onDeleteOpen, setOnDeleteOpen] = useState<boolean>(false);
+  const [onApproveOpen, setOnApproveOpen] = useState<boolean>(false);
+  const [onDisapproveOpen, setOnDisapproveOpen] = useState<boolean>(false);
 
   const handleFetchAllEmployee = async () => {
     setLoading(true);
@@ -140,7 +144,7 @@ const FetchAllEmployee = () => {
               ) : users.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={tableHeadings.length}
+                    colSpan={tableHeadings.length + 1}
                     className="text-center py-12 text-zinc-500 font-medium"
                   >
                     No employees found
@@ -198,8 +202,22 @@ const FetchAllEmployee = () => {
                           </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          <DropdownMenuItem>Approve</DropdownMenuItem>
-                          <DropdownMenuItem>Disapprove</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setId(user.id!);
+                              setOnApproveOpen(true);
+                            }}
+                          >
+                            Approve
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setId(user.id!);
+                              setOnDisapproveOpen(true);
+                            }}
+                          >
+                            Disapprove
+                          </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => {
                               setId(user.id!);
@@ -221,6 +239,18 @@ const FetchAllEmployee = () => {
       <DeleteEmployee
         onDeleteOpen={onDeleteOpen}
         setOnDeleteOpen={setOnDeleteOpen}
+        id={id}
+        handleFetchAllEmployee={handleFetchAllEmployee}
+      />
+      <ApproveEmployee
+        onApproveOpen={onApproveOpen}
+        setOnApproveOpen={setOnApproveOpen}
+        id={id}
+        handleFetchAllEmployee={handleFetchAllEmployee}
+      />
+      <DisapproveEmployee
+        onDisapproveOpen={onDisapproveOpen}
+        setOnDisapproveOpen={setOnDisapproveOpen}
         id={id}
         handleFetchAllEmployee={handleFetchAllEmployee}
       />

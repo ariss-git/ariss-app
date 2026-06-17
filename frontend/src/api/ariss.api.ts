@@ -43,7 +43,7 @@ export const deleteArissUserAPI = async (id: string, token: string) => {
 
 export const approveArissUserAPI = async (
   id: string,
-  type: "ADMIN" | "MODERATOR",
+  type: string,
   token: string,
 ) => {
   return await axios.patch(

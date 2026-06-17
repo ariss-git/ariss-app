@@ -55,7 +55,10 @@ const DeleteEmployee = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDeleteArissUser}>
+          <AlertDialogAction
+            variant="destructive"
+            onClick={handleDeleteArissUser}
+          >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
