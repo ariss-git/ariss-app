@@ -22,6 +22,7 @@ import type { ArissUser } from "@/types/ariss.type";
 import { getToken } from "@clerk/react";
 import { Filter, MoreHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
+import DeleteEmployee from "./DeleteEmployee";
 
 type typeType = "SUPER" | "ADMIN" | "MODERATOR";
 
@@ -52,8 +53,10 @@ const FetchAllEmployee = () => {
   const [type, setType] = useState<typeType | null>(null);
 
   const [users, setUsers] = useState<ArissUser[]>([]);
+  const [id, setId] = useState<string>("");
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [onDeleteOpen, setOnDeleteOpen] = useState<boolean>(false);
 
   const handleFetchAllEmployee = async () => {
     setLoading(true);
@@ -197,7 +200,14 @@ const FetchAllEmployee = () => {
                         <DropdownMenuContent>
                           <DropdownMenuItem>Approve</DropdownMenuItem>
                           <DropdownMenuItem>Disapprove</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setId(user.id!);
+                              setOnDeleteOpen(true);
+                            }}
+                          >
+                            Delete
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
@@ -208,6 +218,12 @@ const FetchAllEmployee = () => {
           </Table>
         </div>
       </div>
+      <DeleteEmployee
+        onDeleteOpen={onDeleteOpen}
+        setOnDeleteOpen={setOnDeleteOpen}
+        id={id}
+        handleFetchAllEmployee={handleFetchAllEmployee}
+      />
     </div>
   );
 };
