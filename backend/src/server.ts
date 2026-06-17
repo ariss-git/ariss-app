@@ -18,7 +18,7 @@ app.use("/api", mainRouter);
 const startServer = async () => {
   await connectToDB();
 
-  app.listen(() => {
+  app.listen(PORT, () => {
     console.log(`Server running on PORT:${PORT}`);
   });
 };

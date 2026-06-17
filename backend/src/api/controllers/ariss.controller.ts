@@ -24,12 +24,10 @@ export const syncUserController = async (req: Request, res: Response) => {
     }
 
     const ariss = await arissServices.syncUserService(data);
-    res
-      .status(201)
-      .json({
-        message: `${ariss.type} - New user added to database ${ariss.name}`,
-        ariss,
-      });
+    res.status(201).json({
+      message: `${ariss.type} - New user added to database ${ariss.name}`,
+      ariss,
+    });
   } catch (error: any) {
     console.log(error.message);
     return res.status(500).json({ error: error.message });

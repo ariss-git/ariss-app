@@ -7,7 +7,7 @@ export const syncUserService = async (data: syncUserType) => {
       id: data.id,
     },
   });
-  if (!existing) throw new Error("User already exist");
+  if (existing) throw new Error("User already exist");
 
   const ariss = await prisma.ariss.create({
     data: {
