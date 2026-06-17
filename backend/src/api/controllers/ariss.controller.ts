@@ -69,3 +69,29 @@ export const fetchAllArissUsersController = async (
     return res.status(400).json({ error: error.message });
   }
 };
+
+export const deleteUserController = async (req: Request, res: Response) => {
+  let errorMessage;
+
+  try {
+    // const { userId } = getAuth(req);
+    // if (!userId) {
+    //   errorMessage = "Unauthorized: Invalid token";
+    //   console.log(errorMessage);
+    //   return res.status(401).json({ error: errorMessage });
+    // }
+
+    const { id } = req.params;
+    if (!id) {
+      errorMessage = "ID is required is params";
+      console.log(errorMessage);
+      return res.status(400).json({ error: errorMessage });
+    }
+
+    const ariss = await arissServices.deleteArissUserService(id as string);
+    res.status(204).json({ message: "ARISS user deleted", ariss });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
