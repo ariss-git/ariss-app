@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { SignOutButton } from "@clerk/react";
+import { useEffect } from "react";
+
+const handleSyncUser = async () => {};
+
+useEffect(() => {
+  handleSyncUser();
+}, []);
 
 const Dashboard = () => {
   return (

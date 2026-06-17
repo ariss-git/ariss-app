@@ -8,13 +8,13 @@ datasource db {
 }
 
 model ariss {
-  id            String        @id
+  id            String         @id
   name          String
-  email         String        @unique
+  email         String         @unique
   profilePicUrl String?
-  type          ArissUserType
-  status        Boolean       @default(false)
-  createdAt     DateTime      @default(now())
+  type          ArissUserType?
+  status        Boolean        @default(false)
+  createdAt     DateTime       @default(now())
 }
 
 enum ArissUserType {

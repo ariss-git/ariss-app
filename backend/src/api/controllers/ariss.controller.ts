@@ -7,9 +7,9 @@ export const syncUserController = async (req: Request, res: Response) => {
   let errorMessage;
 
   try {
-    const { id, name, email, profilePicUrl, type } = req.body;
+    const { id, name, email, profilePicUrl } = req.body;
 
-    const data = { id, name, email, profilePicUrl, type };
+    const data = { id, name, email, profilePicUrl };
     if (!data) {
       errorMessage = "Required fields are missing";
       console.log(errorMessage);
