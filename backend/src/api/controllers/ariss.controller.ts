@@ -61,7 +61,7 @@ export const fetchAllArissUsersController = async (
     const ariss = await arissServices.fetchAllArissUsersService(
       (typeParam as ArissUserType) ?? null,
     );
-    res.status(200).json({ ariss });
+    res.status(200).json({ total: ariss.length, ariss });
   } catch (error: any) {
     console.log(error.message);
     return res.status(400).json({ error: error.message });
