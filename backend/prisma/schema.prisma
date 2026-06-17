@@ -20,6 +20,7 @@ model ariss {
 model customers {
   id               String        @id
   name             String
+  phone            String        @unique
   email            String        @unique
   type             CustomerType?
   gstin            String?
