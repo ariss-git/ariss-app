@@ -41,3 +41,33 @@ export const deleteArissUserService = async (id: string) => {
     },
   });
 };
+
+export const approveArissUserService = async (
+  id: string,
+  type: ArissUserType,
+) => {
+  return await prisma.ariss.update({
+    where: {
+      id,
+    },
+    data: {
+      status: true,
+      type,
+    },
+  });
+};
+
+export const disapproveArissUserService = async (
+  id: string,
+  type: ArissUserType,
+) => {
+  return await prisma.ariss.update({
+    where: {
+      id,
+    },
+    data: {
+      status: false,
+      type,
+    },
+  });
+};
