@@ -57,17 +57,14 @@ export const approveArissUserService = async (
   });
 };
 
-export const disapproveArissUserService = async (
-  id: string,
-  type: ArissUserType,
-) => {
+export const disapproveArissUserService = async (id: string) => {
   return await prisma.ariss.update({
     where: {
       id,
     },
     data: {
       status: false,
-      type,
+      type: null,
     },
   });
 };

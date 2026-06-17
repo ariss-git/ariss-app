@@ -95,3 +95,71 @@ export const deleteUserController = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const approveArissUserController = async (
+  req: Request,
+  res: Response,
+) => {
+  let errorMessage;
+
+  try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
+    const { id } = req.params;
+    if (!id) {
+      errorMessage = "ID is required is params";
+      console.log(errorMessage);
+      return res.status(400).json({ error: errorMessage });
+    }
+
+    const { type } = req.body;
+    if (!type) {
+      errorMessage = "Please assign a type";
+      console.log(errorMessage);
+      return res.status(400).json({ error: errorMessage });
+    }
+
+    const ariss = await arissServices.approveArissUserService(
+      id as string,
+      type,
+    );
+    res.status(200).json({ message: "ARISS user approved", ariss });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const disapproveArissUserController = async (
+  req: Request,
+  res: Response,
+) => {
+  let errorMessage;
+
+  try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
+    const { id } = req.params;
+    if (!id) {
+      errorMessage = "ID is required is params";
+      console.log(errorMessage);
+      return res.status(400).json({ error: errorMessage });
+    }
+
+    const ariss = await arissServices.disapproveArissUserService(id as string);
+    res.status(200).json({ message: "ARISS user disapproved", ariss });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
