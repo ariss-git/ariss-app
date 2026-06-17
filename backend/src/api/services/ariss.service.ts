@@ -33,3 +33,11 @@ export const fetchAllArissUsersService = async (type: ArissUserType | null) => {
     },
   });
 };
+
+export const deleteArissUserService = async (id: string) => {
+  return await prisma.ariss.delete({
+    where: {
+      id,
+    },
+  });
+};
