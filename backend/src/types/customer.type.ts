@@ -5,8 +5,9 @@ export type RegisterDealerType = {
   name: string;
   phone: string;
   email: string;
-  gstin: string;
   profilePicUrl: string | null;
+  gstin: string;
+  businessName: string;
   businessPicUrl: string | null;
   shippingAddress: {
     pncd: string;
