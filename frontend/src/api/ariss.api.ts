@@ -10,3 +10,25 @@ export const syncClerkUserAPI = async (data: syncUserType, token: string) => {
     },
   });
 };
+
+export const fetchAllArissUsersAPI = async (
+  type: "SUPER" | "ADMIN" | "MODERATOR" | null,
+  token: string,
+) => {
+  if (type === null) {
+    return axios.get(`${apiUrl}/ariss/users`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  return axios.get(`${apiUrl}/ariss/users`, {
+    params: {
+      type,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

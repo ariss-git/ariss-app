@@ -10,6 +10,7 @@ import { Loader2 } from "lucide-react";
 import Login from "./pages/Login";
 import SSOCallback from "./callback/sso-callback";
 import MainLayout from "./components/custom/layout/MainLayout";
+import FetchAllEmployee from "./pages/Employee/FetchAllEmployee";
 
 const App = () => {
   const { isSignedIn, isLoaded } = useUser();
@@ -32,6 +33,7 @@ const App = () => {
           }
         >
           <Route index element={<Dashboard />} />
+          <Route path="/employee" element={<FetchAllEmployee />} />
         </Route>
         <Route path="/sso-callback" element={<SSOCallback />} />
         <Route
