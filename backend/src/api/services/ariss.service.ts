@@ -4,7 +4,7 @@ import { type syncUserType } from "../../types/ariss.type";
 export const syncUserService = async (data: syncUserType) => {
   const existing = await prisma.ariss.findUnique({
     where: {
-      id: data.id,
+      email: data.email,
     },
   });
   if (existing) throw new Error("User already exist");
