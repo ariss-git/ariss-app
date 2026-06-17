@@ -7,4 +7,6 @@ arissRouter.post("/user/sync", controller.syncUserController);
 
 arissRouter.get("/users", controller.fetchAllArissUsersController);
 
+arissRouter.delete("/user/delete/:id", controller.deleteUserController);
+
 export default arissRouter;

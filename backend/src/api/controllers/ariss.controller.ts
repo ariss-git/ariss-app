@@ -74,12 +74,12 @@ export const deleteUserController = async (req: Request, res: Response) => {
   let errorMessage;
 
   try {
-    // const { userId } = getAuth(req);
-    // if (!userId) {
-    //   errorMessage = "Unauthorized: Invalid token";
-    //   console.log(errorMessage);
-    //   return res.status(401).json({ error: errorMessage });
-    // }
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
 
     const { id } = req.params;
     if (!id) {
