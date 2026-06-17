@@ -1,3 +1,4 @@
+import { ArissUserType } from "@prisma/client";
 import prisma from "../../lib/orm";
 import { type syncUserType } from "../../types/ariss.type";
 
@@ -19,4 +20,16 @@ export const syncUserService = async (data: syncUserType) => {
   console.log(`${ariss.type} - New user added to database ${ariss.name}`);
 
   return ariss;
+};
+
+export const fetchAllArissUsersService = async (type: ArissUserType | null) => {
+  if (type === null) {
+    return await prisma.ariss.findMany();
+  }
+
+  return await prisma.ariss.findMany({
+    where: {
+      type: type,
+    },
+  });
 };
