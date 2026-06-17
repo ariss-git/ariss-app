@@ -2,6 +2,7 @@ import { getAuth } from "@clerk/express";
 import { Request, Response } from "express";
 
 import * as arissServices from "../services/ariss.service";
+import { ArissUserType } from "@prisma/client";
 
 export const syncUserController = async (req: Request, res: Response) => {
   let errorMessage;
@@ -31,5 +32,38 @@ export const syncUserController = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.log(error.message);
     return res.status(500).json({ error: error.message });
+  }
+};
+
+export const fetchAllArissUsersController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    // const { userId } = getAuth(req);
+    // if (!userId) {
+    //   errorMessage = "Unauthorized: Invalid token";
+    //   console.log(errorMessage);
+    //   return res.status(401).json({ error: errorMessage });
+    // }
+
+    const typeParam = req.query.type;
+
+    if (
+      typeParam &&
+      !Object.values(ArissUserType).includes(typeParam as ArissUserType)
+    ) {
+      return res.status(400).json({
+        error: "Invalid user type",
+      });
+    }
+
+    const ariss = await arissServices.fetchAllArissUsersService(
+      (typeParam as ArissUserType) ?? null,
+    );
+    res.status(200).json({ ariss });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(400).json({ error: error.message });
   }
 };
