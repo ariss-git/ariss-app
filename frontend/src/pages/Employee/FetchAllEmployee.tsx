@@ -56,11 +56,28 @@ const FetchAllEmployee = () => {
 
   const [users, setUsers] = useState<ArissUser[]>([]);
   const [id, setId] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
 
   const [loading, setLoading] = useState<boolean>(false);
   const [onDeleteOpen, setOnDeleteOpen] = useState<boolean>(false);
   const [onApproveOpen, setOnApproveOpen] = useState<boolean>(false);
   const [onDisapproveOpen, setOnDisapproveOpen] = useState<boolean>(false);
+
+  const filteredUser = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(search.toLowerCase()) ||
+      user.email.toLowerCase().includes(search.toLowerCase()) ||
+      user.type.toLowerCase().includes(search.toLowerCase()) ||
+      user.createdAt.toLowerCase().includes(search.toLowerCase()) ||
+      new Date(user.createdAt)
+        .toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+        .toLowerCase()
+        .includes(search.toLowerCase()),
+  );
 
   const handleFetchAllEmployee = async () => {
     setLoading(true);
@@ -84,7 +101,12 @@ const FetchAllEmployee = () => {
   return (
     <div className="flex flex-col w-full max-w-full gap-y-6 p-4 lg:p-10 overflow-hidden">
       <div className="flex justify-between items-center w-full">
-        <Input className="lg:w-[300px]" placeholder="Search for employee..." />
+        <Input
+          className="lg:w-[300px]"
+          placeholder="Search for employee..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -141,7 +163,7 @@ const FetchAllEmployee = () => {
                     </div>
                   </TableCell>
                 </TableRow>
-              ) : users.length === 0 ? (
+              ) : filteredUser.length === 0 ? (
                 <TableRow>
                   <TableCell
                     colSpan={tableHeadings.length + 1}
@@ -151,7 +173,7 @@ const FetchAllEmployee = () => {
                   </TableCell>
                 </TableRow>
               ) : (
-                users.map((user, index) => (
+                filteredUser.map((user, index) => (
                   <TableRow
                     key={user.id}
                     className={`hover:bg-zinc-50/50 transition-colors text-center ${
