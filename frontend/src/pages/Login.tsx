@@ -16,7 +16,7 @@ const Login = () => {
   const { signIn, fetchStatus } = useSignIn();
 
   const [email, setEmail] = useState("");
-  const [emailSent, setEmailSent] = useState(false);
+  const [_emailSent, setEmailSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleGoogleSignIn = async () => {
