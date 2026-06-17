@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {
   ArrowLeftRight,
   BookCheck,
+  Building2,
   Landmark,
   LayoutDashboard,
   NotebookPen,
@@ -18,6 +19,11 @@ export const sidebarItems = [
     text: "Dashboard",
     link: "/",
     icon: LayoutDashboard,
+  },
+  {
+    text: "Employee",
+    link: "/employee",
+    icon: Building2,
   },
   {
     text: "Customers",

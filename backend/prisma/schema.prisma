@@ -6,3 +6,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model ariss {
+  id            String         @id
+  name          String
+  email         String         @unique
+  profilePicUrl String?
+  type          ArissUserType?
+  status        Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+}
+
+enum ArissUserType {
+  SUPER
+  ADMIN
+  MODERATOR
+}
