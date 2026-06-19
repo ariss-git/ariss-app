@@ -1,8 +1,10 @@
 import { CustomerType } from "@prisma/client";
 import prisma from "../../lib/orm";
-import { RegisterDealerType } from "../../types/customer.type";
+import { CompleteDealerProfileType } from "../../types/customer.type";
 
-export const registerDealerService = async (data: RegisterDealerType) => {
+export const completeDealerProfileService = async (
+  data: CompleteDealerProfileType,
+) => {
   const existing = await prisma.customers.findUnique({
     where: {
       id: data.id,

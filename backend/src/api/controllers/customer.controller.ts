@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import * as customerServices from "../services/customer.service";
 
-export const registerDealerController = async (req: Request, res: Response) => {
+export const completeDealerProfileController = async (
+  req: Request,
+  res: Response,
+) => {
   let errorMessage;
   try {
     const {
@@ -35,13 +38,11 @@ export const registerDealerController = async (req: Request, res: Response) => {
       return res.status(400).json({ error: errorMessage });
     }
 
-    const dealer = await customerServices.registerDealerService(data);
-    res
-      .status(201)
-      .json({
-        messsage: `Dealer - ${dealer.businessName} has completed their profile`,
-        dealer,
-      });
+    const dealer = await customerServices.completeDealerProfileService(data);
+    res.status(201).json({
+      messsage: `Dealer - ${dealer.businessName} has completed their profile`,
+      dealer,
+    });
   } catch (error: any) {
     console.log(error.message);
     return res.status(500).json({ error: error.message });

@@ -20,7 +20,7 @@ model ariss {
 model customers {
   id               String        @id
   name             String
-  phone            String        @unique
+  phone            String?       @unique
   email            String        @unique
   profilePicUrl    String?
   type             CustomerType?

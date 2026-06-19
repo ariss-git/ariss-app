@@ -1,6 +1,13 @@
 import { CustomerType } from "@prisma/client";
 
-export type RegisterDealerType = {
+export type RegisterCustomerType = {
+  id: string;
+  name: string;
+  email: string;
+  profilePicUrl: string | null;
+};
+
+export type CompleteDealerProfileType = {
   id: string;
   name: string;
   phone: string;
@@ -25,7 +32,7 @@ export type RegisterDealerType = {
   };
 };
 
-export type RegisterEmployeeType = {
+export type CompleteEmployeeProfileType = {
   id: string;
   name: string;
   phone: string;

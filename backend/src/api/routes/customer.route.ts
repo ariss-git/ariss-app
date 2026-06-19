@@ -5,7 +5,7 @@ const customerRouter = Router();
 
 customerRouter.post(
   "/profile/complete/dealer",
-  controllers.registerDealerController,
+  controllers.completeDealerProfileController,
 );
 
 export default customerRouter;
