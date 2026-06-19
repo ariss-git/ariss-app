@@ -148,3 +148,45 @@ export const completeDealerProfileController = async (
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const completeEmployeeProfileController = async (
+  req: Request,
+  res: Response,
+) => {
+  let errorMessage;
+  try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
+    const { id } = req.params;
+
+    const { phone, type, dealerId } = req.body;
+
+    const data = {
+      phone,
+      type,
+      dealerId,
+    };
+    if (!data) {
+      errorMessage = "Required fields are missing";
+      console.log(errorMessage);
+      return res.status(400).json({ error: errorMessage });
+    }
+
+    const employee = await customerServices.completeEmployeeProfileService(
+      id as string,
+      data,
+    );
+    res.status(200).json({
+      messsage: `An employee has completed their profile`,
+      employee,
+    });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
