@@ -9,6 +9,13 @@ export const registerCustomerController = async (
 ) => {
   let errorMessage;
   try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
     const { id, name, email, profilePicUrl } = req.body;
 
     const data = { id, name, email, profilePicUrl };
