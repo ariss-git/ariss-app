@@ -43,12 +43,12 @@ export const fetchAllCustomerController = async (
   let errorMessage;
 
   try {
-    // const { userId } = getAuth(req);
-    // if (!userId) {
-    //   errorMessage = "Unauthorized: Invalid token";
-    //   console.log(errorMessage);
-    //   return res.status(401).json({ error: errorMessage });
-    // }
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
 
     const typeParam = req.query.type;
 
@@ -78,12 +78,12 @@ export const fetchSingleCustomerController = async (
   let errorMessage;
 
   try {
-    // const { userId } = getAuth(req);
-    // if (!userId) {
-    //   errorMessage = "Unauthorized: Invalid token";
-    //   console.log(errorMessage);
-    //   return res.status(401).json({ error: errorMessage });
-    // }
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
 
     const { id } = req.params;
 
@@ -103,6 +103,13 @@ export const completeDealerProfileController = async (
 ) => {
   let errorMessage;
   try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
     const { id } = req.params;
 
     const {
