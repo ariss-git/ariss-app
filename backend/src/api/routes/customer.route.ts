@@ -3,7 +3,9 @@ import * as controllers from "../controllers/customer.controller";
 
 const customerRouter = Router();
 
-customerRouter.post(
+customerRouter.post("/sync", controllers.registerCustomerController);
+
+customerRouter.put(
   "/profile/complete/dealer",
   controllers.completeDealerProfileController,
 );
