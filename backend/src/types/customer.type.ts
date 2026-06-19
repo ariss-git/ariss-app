@@ -8,10 +8,7 @@ export type RegisterCustomerType = {
 };
 
 export type CompleteDealerProfileType = {
-  id: string;
-  name: string;
   phone: string;
-  email: string;
   profilePicUrl: string | null;
   gstin: string;
   businessName: string;
@@ -33,10 +30,7 @@ export type CompleteDealerProfileType = {
 };
 
 export type CompleteEmployeeProfileType = {
-  id: string;
-  name: string;
   phone: string;
-  email: string;
   type: CustomerType;
   profilePicUrl: string | null;
   dealerId: string;
