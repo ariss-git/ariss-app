@@ -1,6 +1,29 @@
 import { CustomerType } from "@prisma/client";
 import prisma from "../../lib/orm";
-import { CompleteDealerProfileType } from "../../types/customer.type";
+import {
+  CompleteDealerProfileType,
+  RegisterCustomerType,
+} from "../../types/customer.type";
+
+export const registerCustomerService = async (data: RegisterCustomerType) => {
+  const existing = await prisma.customers.findUnique({
+    where: {
+      id: data.id,
+    },
+  });
+  if (existing) throw new Error("Dealer already exist");
+
+  const customer = await prisma.customers.create({
+    data: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      profilePicUrl: data.profilePicUrl,
+    },
+  });
+
+  return customer;
+};
 
 export const completeDealerProfileService = async (
   data: CompleteDealerProfileType,
