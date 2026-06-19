@@ -37,6 +37,14 @@ export const fetchAllCustomerService = async (type: CustomerType) => {
   });
 };
 
+export const fetchSingleCustomerService = async (id: string) => {
+  return await prisma.customers.findMany({
+    where: {
+      id,
+    },
+  });
+};
+
 export const completeDealerProfileService = async (
   data: CompleteDealerProfileType,
 ) => {
