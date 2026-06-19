@@ -6,6 +6,7 @@ const customerRouter = Router();
 customerRouter.post("/sync", controllers.registerCustomerController);
 
 customerRouter.get("/all", controllers.fetchAllCustomerController);
+customerRouter.get("/:id", controllers.fetchSingleCustomerController);
 
 customerRouter.put(
   "/profile/complete/dealer",
