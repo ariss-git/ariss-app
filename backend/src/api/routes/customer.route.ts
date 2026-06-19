@@ -5,6 +5,8 @@ const customerRouter = Router();
 
 customerRouter.post("/sync", controllers.registerCustomerController);
 
+customerRouter.get("/all", controllers.fetchAllCustomerController);
+
 customerRouter.put(
   "/profile/complete/dealer",
   controllers.completeDealerProfileController,
