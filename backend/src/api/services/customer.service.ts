@@ -25,6 +25,18 @@ export const registerCustomerService = async (data: RegisterCustomerType) => {
   return customer;
 };
 
+export const fetchAllCustomerService = async (type: CustomerType) => {
+  if (type === null) {
+    return await prisma.customers.findMany();
+  }
+
+  return await prisma.customers.findMany({
+    where: {
+      type,
+    },
+  });
+};
+
 export const completeDealerProfileService = async (
   data: CompleteDealerProfileType,
 ) => {
