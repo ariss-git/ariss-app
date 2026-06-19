@@ -71,6 +71,32 @@ export const fetchAllCustomerController = async (
   }
 };
 
+export const fetchSingleCustomerController = async (
+  req: Request,
+  res: Response,
+) => {
+  let errorMessage;
+
+  try {
+    // const { userId } = getAuth(req);
+    // if (!userId) {
+    //   errorMessage = "Unauthorized: Invalid token";
+    //   console.log(errorMessage);
+    //   return res.status(401).json({ error: errorMessage });
+    // }
+
+    const { id } = req.params;
+
+    const customer = await customerServices.fetchSingleCustomerService(
+      id as string,
+    );
+    res.status(200).json({ customer });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(400).json({ error: error.message });
+  }
+};
+
 export const completeDealerProfileController = async (
   req: Request,
   res: Response,
