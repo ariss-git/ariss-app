@@ -103,12 +103,10 @@ export const completeDealerProfileController = async (
 ) => {
   let errorMessage;
   try {
+    const { id } = req.params;
+
     const {
-      id,
-      name,
       phone,
-      email,
-      profilePicUrl,
       gstin,
       businessName,
       businessPicUrl,
@@ -117,11 +115,7 @@ export const completeDealerProfileController = async (
     } = req.body;
 
     const data = {
-      id,
-      name,
       phone,
-      email,
-      profilePicUrl,
       gstin,
       businessName,
       businessPicUrl,
@@ -134,8 +128,11 @@ export const completeDealerProfileController = async (
       return res.status(400).json({ error: errorMessage });
     }
 
-    const dealer = await customerServices.completeDealerProfileService(data);
-    res.status(201).json({
+    const dealer = await customerServices.completeDealerProfileService(
+      id as string,
+      data,
+    );
+    res.status(200).json({
       messsage: `Dealer - ${dealer.businessName} has completed their profile`,
       dealer,
     });

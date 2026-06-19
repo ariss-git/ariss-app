@@ -31,6 +31,9 @@ export const fetchAllArissUsersService = async (type: ArissUserType | null) => {
     where: {
       type: type,
     },
+    orderBy: {
+      name: "asc",
+    },
   });
 };
 

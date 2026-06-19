@@ -34,6 +34,9 @@ export const fetchAllCustomerService = async (type: CustomerType) => {
     where: {
       type,
     },
+    orderBy: {
+      businessName: "asc",
+    },
   });
 };
 
@@ -56,11 +59,11 @@ export const completeDealerProfileService = async (
     data: {
       phone: data.phone,
       gstin: data.gstin,
-      profilePicUrl: data.profilePicUrl,
       businessPicUrl: data.businessPicUrl,
       shippingAddress: data.shippingAddress,
       billingAddress: data.billingAddress,
       type: CustomerType.DEALER,
+      profileCompleted: true,
     },
   });
 

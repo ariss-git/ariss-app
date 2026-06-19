@@ -9,7 +9,6 @@ export type RegisterCustomerType = {
 
 export type CompleteDealerProfileType = {
   phone: string;
-  profilePicUrl: string | null;
   gstin: string;
   businessName: string;
   businessPicUrl: string | null;

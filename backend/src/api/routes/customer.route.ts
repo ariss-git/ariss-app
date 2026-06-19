@@ -9,7 +9,7 @@ customerRouter.get("/all", controllers.fetchAllCustomerController);
 customerRouter.get("/:id", controllers.fetchSingleCustomerController);
 
 customerRouter.put(
-  "/profile/complete/dealer",
+  "/profile/complete/dealer/:id",
   controllers.completeDealerProfileController,
 );
 
