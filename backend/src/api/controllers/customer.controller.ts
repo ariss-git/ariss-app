@@ -1,6 +1,32 @@
 import { Request, Response } from "express";
 import * as customerServices from "../services/customer.service";
 
+export const registerCustomerController = async (
+  req: Request,
+  res: Response,
+) => {
+  let errorMessage;
+  try {
+    const { id, name, email, profilePicUrl } = req.body;
+
+    const data = { id, name, email, profilePicUrl };
+    if (!data) {
+      errorMessage = "Required fields are missing";
+      console.log(errorMessage);
+      return res.status(400).json({ error: errorMessage });
+    }
+
+    const customer = await customerServices.registerCustomerService(data);
+    res.status(201).json({
+      messsage: "New customer synced to database",
+      customer,
+    });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const completeDealerProfileController = async (
   req: Request,
   res: Response,
