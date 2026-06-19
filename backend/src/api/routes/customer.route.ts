@@ -12,5 +12,9 @@ customerRouter.put(
   "/profile/complete/dealer/:id",
   controllers.completeDealerProfileController,
 );
+customerRouter.put(
+  "/profile/complete/employee/:id",
+  controllers.completeEmployeeProfileController,
+);
 
 export default customerRouter;
