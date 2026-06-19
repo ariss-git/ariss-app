@@ -153,17 +153,17 @@ const FetchAllEmployee = () => {
       <div className="w-full max-w-full bg-white rounded-xl border border-zinc-200/80 shadow-sm overflow-hidden">
         <div className="w-full overflow-x-auto">
           <Table className="w-full p-4">
-            <TableHeader className="bg-zinc-50/70 subtle-bottom-border">
+            <TableHeader className="bg-black hover:bg-black subtle-bottom-border">
               <TableRow className="hover:bg-transparent">
                 {tableHeadings.map((heading) => (
                   <TableHead
                     key={heading.id}
-                    className="text-center font-semibold text-zinc-700 py-4 px-6 whitespace-nowrap"
+                    className="text-center font-semibold text-neutral-100 py-4 px-6 whitespace-nowrap"
                   >
                     {heading.head}
                   </TableHead>
                 ))}
-                <TableHead className="text-end font-semibold text-zinc-700 py-4 px-6 whitespace-nowrap">
+                <TableHead className="text-end font-semibold text-neutral-100 py-4 px-6 whitespace-nowrap">
                   Actions
                 </TableHead>
               </TableRow>
@@ -235,7 +235,7 @@ const FetchAllEmployee = () => {
                     </TableCell>
 
                     {/* Actions */}
-                    <TableCell align="center">
+                    <TableCell align="right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <button className="p-1.5 hover:bg-zinc-100 text-zinc-500 hover:text-zinc-900 rounded-lg transition-colors inline-flex items-center justify-center cursor-pointer">

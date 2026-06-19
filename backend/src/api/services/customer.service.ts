@@ -28,13 +28,40 @@ export const registerCustomerService = async (data: RegisterCustomerType) => {
 
 export const fetchAllCustomerService = async (type: CustomerType) => {
   if (type === null) {
-    return await prisma.customers.findMany();
+    return await prisma.customers.findMany({
+      orderBy: {
+        businessName: "asc",
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        profilePicUrl: true,
+        phone: true,
+        gstin: true,
+        businessName: true,
+        businessPicUrl: true,
+        shippingAddress: true,
+        billingAddress: true,
+        type: true,
+        status: true,
+        profileCompleted: true,
+        createdAt: true,
+        dealer: {
+          select: {
+            businessName: true,
+            businessPicUrl: true,
+          },
+        },
+      },
+    });
   }
 
   return await prisma.customers.findMany({
     where: {
       type,
     },
+
     orderBy: {
       businessName: "asc",
     },
@@ -60,6 +87,7 @@ export const completeDealerProfileService = async (
     data: {
       phone: data.phone,
       gstin: data.gstin,
+      businessName: data.businessName,
       businessPicUrl: data.businessPicUrl,
       shippingAddress: data.shippingAddress,
       billingAddress: data.billingAddress,
