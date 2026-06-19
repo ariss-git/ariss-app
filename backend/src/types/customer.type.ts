@@ -31,6 +31,5 @@ export type CompleteDealerProfileType = {
 export type CompleteEmployeeProfileType = {
   phone: string;
   type: CustomerType;
-  profilePicUrl: string | null;
   dealerId: string;
 };

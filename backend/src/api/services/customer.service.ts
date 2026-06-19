@@ -2,6 +2,7 @@ import { CustomerType } from "@prisma/client";
 import prisma from "../../lib/orm";
 import {
   CompleteDealerProfileType,
+  CompleteEmployeeProfileType,
   RegisterCustomerType,
 } from "../../types/customer.type";
 
@@ -68,4 +69,23 @@ export const completeDealerProfileService = async (
   });
 
   return dealer;
+};
+
+export const completeEmployeeProfileService = async (
+  id: string,
+  data: CompleteEmployeeProfileType,
+) => {
+  const employee = await prisma.customers.update({
+    where: {
+      id,
+    },
+    data: {
+      phone: data.phone,
+      type: data.type,
+      dealerId: data.dealerId,
+      profileCompleted: true,
+    },
+  });
+
+  return employee;
 };
