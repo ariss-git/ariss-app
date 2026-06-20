@@ -78,12 +78,12 @@ export const fetchSingleCustomerController = async (
   let errorMessage;
 
   try {
-    // const { userId } = getAuth(req);
-    // if (!userId) {
-    //   errorMessage = "Unauthorized: Invalid token";
-    //   console.log(errorMessage);
-    //   return res.status(401).json({ error: errorMessage });
-    // }
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
 
     const { id } = req.params;
 
@@ -185,6 +185,79 @@ export const completeEmployeeProfileController = async (
       messsage: `An employee has completed their profile`,
       employee,
     });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const approveCustomerController = async (
+  req: Request,
+  res: Response,
+) => {
+  let errorMessage;
+
+  try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
+    const { id } = req.params;
+
+    const customer = await customerServices.approveCustomerService(
+      id as string,
+    );
+    res.status(200).json({ message: "Customer account approved", customer });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const disapproveCustomerController = async (
+  req: Request,
+  res: Response,
+) => {
+  let errorMessage;
+
+  try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
+    const { id } = req.params;
+
+    const customer = await customerServices.disapproveCustomerService(
+      id as string,
+    );
+    res.status(200).json({ message: "Customer account disapproved", customer });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const deleteCustomerController = async (req: Request, res: Response) => {
+  let errorMessage;
+
+  try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
+    const { id } = req.params;
+
+    const customer = await customerServices.deleteCustomerService(id as string);
+    res.status(204).json({ message: "Customer account deleted", customer });
   } catch (error: any) {
     console.log(error.message);
     return res.status(500).json({ error: error.message });
