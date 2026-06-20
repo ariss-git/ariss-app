@@ -1,0 +1,34 @@
+import prisma from "../../lib/orm";
+import type { AddCategory, UpdateCategory } from "../../types/stock.type";
+
+export const addCategoryService = async (data: AddCategory) => {
+  const existing = await prisma.categories.findUnique({
+    where: {
+      name: data.name,
+    },
+  });
+  if (existing) throw new Error("Category already exists");
+
+  const category = await prisma.categories.create({
+    data: {
+      name: data.name,
+      imageUrl: data.imageUrl,
+    },
+  });
+
+  return category;
+};
+
+export const updateCategoryService = async (data: UpdateCategory) => {
+  const category = await prisma.categories.update({
+    where: {
+      id: data.id,
+    },
+    data: {
+      name: data.name,
+      imageUrl: data.imageUrl,
+    },
+  });
+
+  return category;
+};
