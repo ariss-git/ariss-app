@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as categoryServices from "../services/category.service";
+import { getAuth } from "@clerk/express";
 
 export const addCategoryController = async (req: Request, res: Response) => {
   let errorMessage;
@@ -11,6 +12,13 @@ export const addCategoryController = async (req: Request, res: Response) => {
       errorMessage = "Required fields are missing";
       console.log(errorMessage);
       return res.status(400).json({ error: errorMessage });
+    }
+
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
     }
 
     const category = await categoryServices.addCategoryService(data);
@@ -26,6 +34,13 @@ export const fetchAllCategoriesController = async (
 ) => {
   let errorMessage;
   try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
     const category = await categoryServices.fetchAllCategoriesService();
     res.status(200).json({ total: category.length, category });
   } catch (error: any) {
@@ -47,6 +62,13 @@ export const fetchSingleCategoryController = async (
       return res.status(400).json({ error: errorMessage });
     }
 
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
     const category = await categoryServices.fetchSingleCategoryService(
       id as string,
     );
@@ -59,8 +81,10 @@ export const fetchSingleCategoryController = async (
 export const updateCategoryController = async (req: Request, res: Response) => {
   let errorMessage;
   try {
-    const { id } = req.params;
+    let { id } = req.params;
     const { name, imageUrl } = req.body;
+
+    id = id as string;
 
     const data = { id, name, imageUrl };
     if (!data) {
@@ -69,9 +93,14 @@ export const updateCategoryController = async (req: Request, res: Response) => {
       return res.status(400).json({ error: errorMessage });
     }
 
-    const category = await categoryServices.fetchSingleCategoryService(
-      id as string,
-    );
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
+    const category = await categoryServices.updateCategoryService(data);
     res.status(200).json({ message: "Category updated", category });
   } catch (error: any) {
     console.log(error.message);
@@ -87,6 +116,13 @@ export const deleteCategoryController = async (req: Request, res: Response) => {
       errorMessage = "Required param is missing";
       console.log(errorMessage);
       return res.status(400).json({ error: errorMessage });
+    }
+
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
     }
 
     const category = await categoryServices.deleteCategoryService(id as string);

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as subcategoryServices from "../services/subcategory.service";
+import { getAuth } from "@clerk/express";
 
 export const addSubcategoryController = async (req: Request, res: Response) => {
   let errorMessage;
@@ -11,6 +12,13 @@ export const addSubcategoryController = async (req: Request, res: Response) => {
       errorMessage = "Required fields are missing";
       console.log(errorMessage);
       return res.status(400).json({ error: errorMessage });
+    }
+
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
     }
 
     const subcategory = await subcategoryServices.addSubcategoryService(data);
@@ -26,6 +34,13 @@ export const fetchAllSubcategoriesController = async (
 ) => {
   let errorMessage;
   try {
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
     const subcategory =
       await subcategoryServices.fetchAllSubcategoriesService();
     res.status(200).json({ total: subcategory.length, subcategory });
@@ -46,6 +61,13 @@ export const fetchSingleSubcategoryController = async (
       errorMessage = "Required param is missing";
       console.log(errorMessage);
       return res.status(400).json({ error: errorMessage });
+    }
+
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
     }
 
     const subcategory = await subcategoryServices.fetchSingleSubcategoryService(
@@ -76,6 +98,13 @@ export const updateSubcategoryController = async (
     id = id as string;
     const data = { id, name, imageUrl, categoryId };
 
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
+    }
+
     const subcategory =
       await subcategoryServices.updateSubcategoryService(data);
     res.status(200).json({ message: "Subcategory updated", subcategory });
@@ -96,6 +125,13 @@ export const deleteSubcategoryController = async (
       errorMessage = "Required param is missing";
       console.log(errorMessage);
       return res.status(400).json({ error: errorMessage });
+    }
+
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
     }
 
     const subcategory = await subcategoryServices.deleteSubcategoryService(
