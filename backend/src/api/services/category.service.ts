@@ -19,6 +19,18 @@ export const addCategoryService = async (data: AddCategory) => {
   return category;
 };
 
+export const fetchAllCategoriesService = async () => {
+  return await prisma.categories.findMany();
+};
+
+export const fetchSingleCategoryService = async (id: string) => {
+  return await prisma.categories.findUnique({
+    where: {
+      id,
+    },
+  });
+};
+
 export const updateCategoryService = async (data: UpdateCategory) => {
   const category = await prisma.categories.update({
     where: {
