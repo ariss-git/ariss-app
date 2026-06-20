@@ -198,13 +198,6 @@ export const approveCustomerController = async (
   let errorMessage;
 
   try {
-    const { userId } = getAuth(req);
-    if (!userId) {
-      errorMessage = "Unauthorized: Invalid token";
-      console.log(errorMessage);
-      return res.status(401).json({ error: errorMessage });
-    }
-
     const { id } = req.params;
 
     const customer = await customerServices.approveCustomerService(
@@ -224,13 +217,6 @@ export const disapproveCustomerController = async (
   let errorMessage;
 
   try {
-    const { userId } = getAuth(req);
-    if (!userId) {
-      errorMessage = "Unauthorized: Invalid token";
-      console.log(errorMessage);
-      return res.status(401).json({ error: errorMessage });
-    }
-
     const { id } = req.params;
 
     const customer = await customerServices.disapproveCustomerService(

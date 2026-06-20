@@ -32,6 +32,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import ViewAndUpdateCustomer from "./ViewAndUpdateCustomer";
 import DeleteCustomer from "./DeleteCustomer";
+import ApproveCustomer from "./ApproveCustomer";
+import DisapproveCustomer from "./DisapproveCustomer";
 
 interface Customers {
   id: string;
@@ -75,6 +77,8 @@ const FetchAllCustomers = () => {
   const [loading, setLoading] = useState(false);
   const [onViewOpen, setOnViewOpen] = useState<boolean>(false);
   const [onDeleteOpen, setOnDeleteOpen] = useState<boolean>(false);
+  const [onApproveOpen, setOnApproveOpen] = useState<boolean>(false);
+  const [onDisapproveOpen, setOnDisapproveOpen] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -281,11 +285,13 @@ const FetchAllCustomers = () => {
                     </TableCell>
 
                     <TableCell>
-                      <Badge
-                        variant={customer.status ? "default" : "destructive"}
-                      >
-                        {customer.status ? "Active" : "Inactive"}
-                      </Badge>
+                      {customer.status ? (
+                        <Badge className="bg-green-500 text-green-100">
+                          Active
+                        </Badge>
+                      ) : (
+                        <Badge variant="destructive">Inactive</Badge>
+                      )}
                     </TableCell>
 
                     <TableCell className="font-medium">
@@ -347,8 +353,22 @@ const FetchAllCustomers = () => {
                           </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          <DropdownMenuItem>Approve</DropdownMenuItem>
-                          <DropdownMenuItem>Disapprove</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setId(customer.id);
+                              setOnApproveOpen(true);
+                            }}
+                          >
+                            Approve
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setId(customer.id);
+                              setOnDisapproveOpen(true);
+                            }}
+                          >
+                            Disapprove
+                          </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => {
                               setId(customer.id);
@@ -384,6 +404,20 @@ const FetchAllCustomers = () => {
           <DeleteCustomer
             onDeleteOpen={onDeleteOpen}
             setOnDeleteOpen={setOnDeleteOpen}
+            id={id}
+            fetchAllCustomers={handleFetchAllCustomers}
+          />
+
+          <ApproveCustomer
+            onApproveOpen={onApproveOpen}
+            setOnApproveOpen={setOnApproveOpen}
+            id={id}
+            fetchAllCustomers={handleFetchAllCustomers}
+          />
+
+          <DisapproveCustomer
+            onDisapproveOpen={onDisapproveOpen}
+            setOnDisapproveOpen={setOnDisapproveOpen}
             id={id}
             fetchAllCustomers={handleFetchAllCustomers}
           />
