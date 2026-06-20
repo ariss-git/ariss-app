@@ -30,6 +30,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ViewAndUpdateCustomer from "./ViewAndUpdateCustomer";
 
 interface Customers {
   id: string;
@@ -66,11 +67,15 @@ interface Customers {
 
 const FetchAllCustomers = () => {
   const [type, setType] = useState<CustomerType>("DEALER");
-  const [customers, setCustomers] = useState<Customers[]>([]);
-  const [search, setSearch] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(false);
 
+  const [customers, setCustomers] = useState<Customers[]>([]);
+
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [onViewOpen, setOnViewOpen] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
+
+  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
   const handleFetchAllCustomers = async () => {
@@ -163,6 +168,9 @@ const FetchAllCustomers = () => {
                 <TableHead className="text-left font-semibold text-neutral-100 py-4 px-6 whitespace-nowrap" />
                 <TableHead className="text-left font-semibold text-neutral-100 py-4 px-6 whitespace-nowrap">
                   Business
+                </TableHead>
+                <TableHead className="text-left font-semibold text-neutral-100 py-4 px-6 whitespace-nowrap">
+                  GSTIN
                 </TableHead>
                 <TableHead className="text-left font-semibold text-neutral-100 py-4 px-6 whitespace-nowrap">
                   Type
@@ -258,6 +266,8 @@ const FetchAllCustomers = () => {
                     )} */}
                     <TableCell>{customer.businessName || "-"}</TableCell>
 
+                    <TableCell>{customer.gstin || "-"}</TableCell>
+
                     <TableCell>
                       {customer.type ? (
                         <Badge variant="ghost" className="cursor-default">
@@ -337,7 +347,14 @@ const FetchAllCustomers = () => {
                         <DropdownMenuContent>
                           <DropdownMenuItem>Approve</DropdownMenuItem>
                           <DropdownMenuItem>Disapprove</DropdownMenuItem>
-                          <DropdownMenuItem>View & Update</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setId(customer.id);
+                              setOnViewOpen(true);
+                            }}
+                          >
+                            View Profile
+                          </DropdownMenuItem>
                           <DropdownMenuItem>Delete</DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -347,6 +364,13 @@ const FetchAllCustomers = () => {
               )}
             </TableBody>
           </Table>
+
+          <ViewAndUpdateCustomer
+            id={id}
+            onViewOpen={onViewOpen}
+            setOnViewOpen={setOnViewOpen}
+            type={type}
+          />
 
           {pagination.length !== 0 && (
             <Pagination className="mt-6 mb-4">
