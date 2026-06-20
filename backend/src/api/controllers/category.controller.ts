@@ -72,7 +72,7 @@ export const updateCategoryController = async (req: Request, res: Response) => {
     const category = await categoryServices.fetchSingleCategoryService(
       id as string,
     );
-    res.status(200).json({ message: "Category added", category });
+    res.status(200).json({ message: "Category updated", category });
   } catch (error: any) {
     console.log(error.message);
   }
@@ -90,7 +90,7 @@ export const deleteCategoryController = async (req: Request, res: Response) => {
     }
 
     const category = await categoryServices.deleteCategoryService(id as string);
-    res.status(204).json({ category });
+    res.status(204).json({ message: "Category deleted", category });
   } catch (error: any) {
     console.log(error.message);
   }
