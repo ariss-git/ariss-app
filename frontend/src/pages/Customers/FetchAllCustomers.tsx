@@ -31,6 +31,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ViewAndUpdateCustomer from "./ViewAndUpdateCustomer";
+import DeleteCustomer from "./DeleteCustomer";
 
 interface Customers {
   id: string;
@@ -73,6 +74,7 @@ const FetchAllCustomers = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [onViewOpen, setOnViewOpen] = useState<boolean>(false);
+  const [onDeleteOpen, setOnDeleteOpen] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -355,7 +357,14 @@ const FetchAllCustomers = () => {
                           >
                             View Profile
                           </DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setId(customer.id);
+                              setOnDeleteOpen(true);
+                            }}
+                          >
+                            Delete
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
@@ -370,6 +379,13 @@ const FetchAllCustomers = () => {
             onViewOpen={onViewOpen}
             setOnViewOpen={setOnViewOpen}
             type={type}
+          />
+
+          <DeleteCustomer
+            onDeleteOpen={onDeleteOpen}
+            setOnDeleteOpen={setOnDeleteOpen}
+            id={id}
+            fetchAllCustomers={handleFetchAllCustomers}
           />
 
           {pagination.length !== 0 && (
