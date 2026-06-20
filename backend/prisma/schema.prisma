@@ -17,8 +17,36 @@ model ariss {
   createdAt     DateTime       @default(now())
 }
 
+model customers {
+  id               String        @id
+  name             String
+  phone            String?       @unique
+  email            String        @unique
+  profilePicUrl    String?
+  type             CustomerType?
+  gstin            String?
+  businessName     String?
+  businessPicUrl   String?
+  shippingAddress  Json?
+  billingAddress   Json?
+  status           Boolean       @default(false)
+  profileCompleted Boolean       @default(false)
+  createdAt        DateTime      @default(now())
+
+  dealerId String?
+  dealer   customers? @relation("CustomerHierarchy", fields: [dealerId], references: [id])
+
+  employees customers[] @relation("CustomerHierarchy")
+}
+
 enum ArissUserType {
   SUPER
   ADMIN
   MODERATOR
+}
+
+enum CustomerType {
+  DEALER
+  TECHNICIAN
+  BACKOFFICE
 }
