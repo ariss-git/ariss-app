@@ -31,3 +31,27 @@ export const fetchSingleCustomerAPI = async (id: string, token: string) => {
     },
   });
 };
+
+export const approveCustomerAPI = async (id: string, token: string) => {
+  return axios.patch(`${apiUrl}/customers/profile/approve/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const disapproveCustomerAPI = async (id: string, token: string) => {
+  return axios.patch(`${apiUrl}/customers/profile/disapprove/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const deleteCustomerAPI = async (id: string, token: string) => {
+  return axios.delete(`${apiUrl}/customers/profile/delete/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
