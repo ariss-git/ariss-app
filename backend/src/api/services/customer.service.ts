@@ -117,3 +117,39 @@ export const completeEmployeeProfileService = async (
 
   return employee;
 };
+
+export const approveCustomerService = async (id: string) => {
+  const customer = await prisma.customers.update({
+    where: {
+      id,
+    },
+    data: {
+      status: true,
+    },
+  });
+
+  return customer;
+};
+
+export const disapproveCustomerService = async (id: string) => {
+  const customer = await prisma.customers.update({
+    where: {
+      id,
+    },
+    data: {
+      status: false,
+    },
+  });
+
+  return customer;
+};
+
+export const deleteCustomerService = async (id: string) => {
+  const customer = await prisma.customers.delete({
+    where: {
+      id,
+    },
+  });
+
+  return customer;
+};
