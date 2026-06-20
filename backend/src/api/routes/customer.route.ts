@@ -17,4 +17,18 @@ customerRouter.put(
   controllers.completeEmployeeProfileController,
 );
 
+customerRouter.patch(
+  "/profile/approve/:id",
+  controllers.approveCustomerController,
+);
+customerRouter.patch(
+  "/profile/disapprove/:id",
+  controllers.disapproveCustomerController,
+);
+
+customerRouter.delete(
+  "/profile/delete/:id",
+  controllers.deleteCustomerController,
+);
+
 export default customerRouter;
