@@ -119,24 +119,28 @@ const FetchAllCategory = () => {
           }}
         />
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              <Filter className="w-4 h-4 stroke-1" /> Filter
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuGroup>
-              <DropdownMenuLabel>Stocks</DropdownMenuLabel>
-              <Link to={"/subcategories"}>
-                <DropdownMenuItem>Subcategories</DropdownMenuItem>
-              </Link>
-              <Link to={"/products"}>
-                <DropdownMenuItem>Products</DropdownMenuItem>
-              </Link>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex justify-end items-end w-full lg:gap-x-4">
+          <Button>Add Category</Button>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <Filter className="w-4 h-4 stroke-1" /> Filter
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Stocks</DropdownMenuLabel>
+                <Link to={"/subcategories"}>
+                  <DropdownMenuItem>Subcategories</DropdownMenuItem>
+                </Link>
+                <Link to={"/products"}>
+                  <DropdownMenuItem>Products</DropdownMenuItem>
+                </Link>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       <div className="w-full max-w-full bg-white rounded-xl border border-zinc-200/80 shadow-sm overflow-hidden">
