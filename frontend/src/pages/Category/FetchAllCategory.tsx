@@ -31,6 +31,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Filter, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import AddCategory from "./AddCategory";
 
 interface Category {
   id: string;
@@ -120,7 +121,7 @@ const FetchAllCategory = () => {
         />
 
         <div className="flex justify-end items-end w-full lg:gap-x-4">
-          <Button>Add Category</Button>
+          <AddCategory />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
