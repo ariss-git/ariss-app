@@ -31,10 +31,10 @@ export const fetchSingleCategoryService = async (id: string) => {
   });
 };
 
-export const updateCategoryService = async (data: UpdateCategory) => {
+export const updateCategoryService = async (id: string, data: UpdateCategory) => {
   const category = await prisma.categories.update({
     where: {
-      id: data.id,
+      id,
     },
     data: {
       name: data.name,

@@ -86,7 +86,7 @@ export const updateCategoryController = async (req: Request, res: Response) => {
 
     id = id as string;
 
-    const data = { id, name, imageUrl };
+    const data = { name, imageUrl };
     if (!data) {
       errorMessage = "Required param and fields are missing";
       console.log(errorMessage);
@@ -100,7 +100,7 @@ export const updateCategoryController = async (req: Request, res: Response) => {
       return res.status(401).json({ error: errorMessage });
     }
 
-    const category = await categoryServices.updateCategoryService(data);
+    const category = await categoryServices.updateCategoryService(id, data);
     res.status(200).json({ message: "Category updated", category });
   } catch (error: any) {
     console.log(error.message);

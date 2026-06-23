@@ -33,6 +33,7 @@ import { Filter, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import AddCategory from "./AddCategory";
 import DeleteCategory from "./DeleteCategory";
+import UpdateCategory from "./UpdateCategory";
 
 interface Category {
   id: string;
@@ -63,6 +64,7 @@ const FetchAllCategory = () => {
   const [search, setSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
+  const [onUpdateOpen, setOnUpdateOpen] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<string>("");
 
   const itemsPerPage = 20;
@@ -233,7 +235,14 @@ const FetchAllCategory = () => {
                           </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          <DropdownMenuItem>Update</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setSelectedId(category.id);
+                              setOnUpdateOpen(true);
+                            }}
+                          >
+                            Update
+                          </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => {
                               setSelectedId(category.id);
@@ -289,6 +298,13 @@ const FetchAllCategory = () => {
             fetchAllCategories={handleFetchAllCategory}
             onDeleteOpen={deleteOpen}
             setOnDeleteOpen={setDeleteOpen}
+          />
+          {/* Update Category Dialog */}
+          <UpdateCategory
+            id={selectedId}
+            fetchAllCategories={handleFetchAllCategory}
+            onUpdateOpen={onUpdateOpen}
+            setonUpdateOpen={setOnUpdateOpen}
           />
         </div>
       </div>

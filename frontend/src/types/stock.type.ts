@@ -4,7 +4,6 @@ export type AddCategory = {
 };
 
 export type UpdateCategory = {
-  id: string;
   name: string;
   imageUrl: string;
 };
