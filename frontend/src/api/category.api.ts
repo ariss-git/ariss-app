@@ -17,3 +17,11 @@ export const addCategoryAPI = async (data: AddCategory, token: string) => {
     },
   });
 };
+
+export const deleteCategoryAPI = async (id: string, token: string) => {
+  return await axios.delete(`${apiUrl}/stock/category/delete/${id}` , {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}

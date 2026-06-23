@@ -32,6 +32,7 @@ import { Button } from "@/components/ui/button";
 import { Filter, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import AddCategory from "./AddCategory";
+import DeleteCategory from "./DeleteCategory";
 
 interface Category {
   id: string;
@@ -61,6 +62,8 @@ const FetchAllCategory = () => {
 
   const [search, setSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
+  const [selectedId, setSelectedId] = useState<string>("");
 
   const itemsPerPage = 20;
 
@@ -111,7 +114,7 @@ const FetchAllCategory = () => {
     <div className="flex flex-col w-full max-w-full gap-y-6 p-4 lg:p-10 overflow-hidden">
       <div className="flex justify-between items-center w-full">
         <Input
-          className="lg:w-[300px]"
+          className="lg:w-75"
           placeholder="Search category..."
           value={search}
           onChange={(e) => {
@@ -231,7 +234,14 @@ const FetchAllCategory = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                           <DropdownMenuItem>Update</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setSelectedId(category.id);
+                              setDeleteOpen(true);
+                            }}
+                          >
+                            Delete
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
@@ -273,6 +283,13 @@ const FetchAllCategory = () => {
               </PaginationContent>
             </Pagination>
           )}
+          {/* Delete Category Dialog */}
+          <DeleteCategory
+            id={selectedId}
+            fetchAllCategories={handleFetchAllCategory}
+            onDeleteOpen={deleteOpen}
+            setOnDeleteOpen={setDeleteOpen}
+          />
         </div>
       </div>
     </div>
