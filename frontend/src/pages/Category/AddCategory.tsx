@@ -17,7 +17,11 @@ import { getToken } from "@clerk/react";
 import { Loader2, PlusCircle } from "lucide-react";
 import { useState } from "react";
 
-const AddCategory = () => {
+const AddCategory = ({
+  fetchAllCategories,
+}: {
+  fetchAllCategories: () => void;
+}) => {
   const [image, setImage] = useState<File | null>(null);
   const [name, setName] = useState<string>("");
 
@@ -31,7 +35,11 @@ const AddCategory = () => {
 
       const data = { name, imageUrl };
 
-      await addCategoryAPI(data, token!);
+      await addCategoryAPI(data, token!)
+        .then(() => {
+          fetchAllCategories();
+        })
+        .catch((err) => console.log(err.message));
       console.log("New category added");
 
       setName("");

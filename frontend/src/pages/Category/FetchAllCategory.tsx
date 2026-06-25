@@ -126,7 +126,7 @@ const FetchAllCategory = () => {
         />
 
         <div className="flex justify-end items-end w-full lg:gap-x-4">
-          <AddCategory />
+          <AddCategory fetchAllCategories={handleFetchAllCategory} />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

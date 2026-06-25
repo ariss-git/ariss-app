@@ -131,7 +131,7 @@ const FetchAllCustomers = () => {
     <div className="flex flex-col w-full max-w-full gap-y-6 p-4 lg:p-10 overflow-hidden">
       <div className="flex justify-between items-center w-full">
         <Input
-          className="lg:w-[300px]"
+          className="lg:w-75"
           placeholder="Search customers..."
           value={search}
           onChange={(e) => {
@@ -224,7 +224,7 @@ const FetchAllCustomers = () => {
               ) : pagination.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={6}
+                    colSpan={13}
                     className="text-center py-12 text-zinc-500 font-medium"
                   >
                     No customers found
