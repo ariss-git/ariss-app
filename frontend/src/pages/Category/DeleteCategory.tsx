@@ -14,11 +14,6 @@ import { getToken } from "@clerk/react";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-// interface SingleCategory {
-//   id: string;
-//   imageUrl: string;
-// }
-
 const DeleteCategory = ({
   id,
   fetchAllCategories,
@@ -31,7 +26,7 @@ const DeleteCategory = ({
   setOnDeleteOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [filePath, setFilePath] = useState<string>("");
 
   const handleFetchImageUrl = async () => {
     setLoading(true);
@@ -39,8 +34,8 @@ const DeleteCategory = ({
       const token = await getToken();
       await fetchSingleCategoryAPI(id, token!)
         .then((res: any) => {
-          console.log("Image URL: ", res.data.category?.imageUrl!);
-          setImageUrl(res.data.category?.imageUrl!);
+          console.log("File path: ", res.data.category?.filePath!);
+          setFilePath(res.data.category?.filePath!);
         })
         .catch((err: any) => console.log(err.message));
     } catch (error: any) {
@@ -57,7 +52,7 @@ const DeleteCategory = ({
 
       await deleteCategoryAPI(id, token!)
         .then(() => {
-          const res = handleImageDelete(imageUrl, "categories");
+          const res = handleImageDelete("categories", filePath);
           console.log("Image delete response: ", res);
           console.log("Category deleted successfully");
         })
