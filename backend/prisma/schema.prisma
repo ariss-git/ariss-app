@@ -39,6 +39,27 @@ model customers {
   employees customers[] @relation("CustomerHierarchy")
 }
 
+model categories {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  imageUrl  String
+  filePath  String
+  createdAt DateTime @default(now())
+
+  subcategories subcategories[]
+}
+
+model subcategories {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  imageUrl  String
+  filePath  String
+  createdAt DateTime @default(now())
+
+  categoryId String?
+  categories categories? @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
 enum ArissUserType {
   SUPER
   ADMIN
