@@ -4,6 +4,11 @@ export const handleImageDelete = async (
   publicUrl: string,
   bucketName: string
 ): Promise<boolean> => {
+  // Ensure a valid public URL is provided
+  if (!publicUrl) {
+    // Nothing to delete; treat as successful noop
+    return true;
+  }
   const prefix = `/object/public/${bucketName}/`;
   const idx = publicUrl.indexOf(prefix);
   if (idx === -1) {

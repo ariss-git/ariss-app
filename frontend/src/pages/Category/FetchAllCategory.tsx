@@ -29,7 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Filter, MoreHorizontal } from "lucide-react";
+import { Filter, MoreHorizontal, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import AddCategory from "./AddCategory";
 import DeleteCategory from "./DeleteCategory";
@@ -63,6 +63,7 @@ const FetchAllCategory = () => {
 
   const [search, setSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [onAddOpen, setOnAddOpen] = useState<boolean>(false);
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
   const [onUpdateOpen, setOnUpdateOpen] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<string>("");
@@ -126,7 +127,13 @@ const FetchAllCategory = () => {
         />
 
         <div className="flex justify-end items-end w-full lg:gap-x-4">
-          <AddCategory fetchAllCategories={handleFetchAllCategory} />
+          <Button
+            onClick={() => {
+              setOnAddOpen(true);
+            }}
+          >
+            <PlusCircle size={8} /> Category
+          </Button>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -292,6 +299,14 @@ const FetchAllCategory = () => {
               </PaginationContent>
             </Pagination>
           )}
+
+          {/* Add Category Dialog */}
+          <AddCategory
+            onAddOpen={onAddOpen}
+            setOnAddOpen={setOnAddOpen}
+            fetchAllCategories={handleFetchAllCategory}
+          />
+
           {/* Delete Category Dialog */}
           <DeleteCategory
             id={selectedId}
@@ -299,6 +314,7 @@ const FetchAllCategory = () => {
             onDeleteOpen={deleteOpen}
             setOnDeleteOpen={setDeleteOpen}
           />
+
           {/* Update Category Dialog */}
           <UpdateCategory
             id={selectedId}

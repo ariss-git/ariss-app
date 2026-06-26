@@ -8,18 +8,21 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { handleImageUpload } from "@/util/uploadImageToSupabase";
 import { getToken } from "@clerk/react";
-import { Loader2, PlusCircle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
 const AddCategory = ({
+  onAddOpen,
+  setOnAddOpen,
   fetchAllCategories,
 }: {
+  onAddOpen: boolean;
+  setOnAddOpen: React.Dispatch<React.SetStateAction<boolean>>;
   fetchAllCategories: () => void;
 }) => {
   const [image, setImage] = useState<File | null>(null);
@@ -44,6 +47,8 @@ const AddCategory = ({
 
       setName("");
       setImage(null);
+
+      setOnAddOpen(false);
     } catch (error: any) {
       console.log(error.message);
     } finally {
@@ -52,12 +57,7 @@ const AddCategory = ({
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>
-          <PlusCircle size={8} /> Category
-        </Button>
-      </DialogTrigger>
+    <Dialog open={onAddOpen} onOpenChange={setOnAddOpen}>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
           <DialogTitle>Add Category</DialogTitle>

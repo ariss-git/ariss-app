@@ -10,6 +10,14 @@ export const fetchAllCategoryAPI = async (token: string) => {
   });
 };
 
+export const fetchSingleCategoryAPI = async (id: string, token: string) => {
+  return await axios.get(`${apiUrl}/stock/category/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export const addCategoryAPI = async (data: AddCategory, token: string) => {
   return await axios.post(`${apiUrl}/stock/category/add`, data, {
     headers: {
