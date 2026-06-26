@@ -22,7 +22,21 @@ export const addSubcategoryService = async (data: AddSubcategory) => {
 };
 
 export const fetchAllSubcategoriesService = async () => {
-  return await prisma.subcategories.findMany();
+  return await prisma.subcategories.findMany({
+    select: {
+      id: true,
+      name: true,
+      imageUrl: true,
+      filePath: true,
+      categoryId: true,
+      createdAt: true,
+      categories: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
 };
 
 export const fetchSingleSubcategoryService = async (id: string) => {

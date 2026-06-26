@@ -14,6 +14,7 @@ import FetchAllEmployee from "./pages/Employee/FetchAllEmployee";
 import FetchAllCustomers from "./pages/Customers/FetchAllCustomers";
 import FetchAllCategory from "./pages/Category/FetchAllCategory";
 import FetchAllProduct from "./pages/Product/FetchAllProduct";
+import FetchAllSubcategory from "./pages/Subcategory/FetchAllSubcategory";
 
 const App = () => {
   const { isSignedIn, isLoaded } = useUser();
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/employee" element={<FetchAllEmployee />} />
           <Route path="/customers" element={<FetchAllCustomers />} />
           <Route path="/categories" element={<FetchAllCategory />} />
+          <Route path="/subcategories" element={<FetchAllSubcategory />} />
           <Route path="/products" element={<FetchAllProduct />} />
         </Route>
         <Route path="/sso-callback" element={<SSOCallback />} />
