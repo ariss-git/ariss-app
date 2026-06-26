@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiUrl } from "./apiUrl";
-import type { AddSubcategory, UpdateCategory } from "@/types/stock.type";
+import type { AddSubcategory, UpdateSubcategory } from "@/types/stock.type";
 
 export const fetchAllSubcategoryAPI = async (token: string) => {
   return await axios.get(`${apiUrl}/stock/subcategory/all`, {
@@ -37,12 +37,12 @@ export const deleteSubcategoryAPI = async (id: string, token: string) => {
   });
 };
 
-export const updateCategoryAPI = async (
+export const updateSubcategoryAPI = async (
   id: string,
-  data: UpdateCategory,
+  data: UpdateSubcategory,
   token: string,
 ) => {
-  return await axios.put(`${apiUrl}/stock/category/update/${id}`, data, {
+  return await axios.put(`${apiUrl}/stock/subcategory/update/${id}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

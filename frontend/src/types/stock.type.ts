@@ -18,7 +18,6 @@ export type AddSubcategory = {
 };
 
 export type UpdateSubcategory = {
-  id: string;
   name: string;
   imageUrl: string;
   filePath: string;
