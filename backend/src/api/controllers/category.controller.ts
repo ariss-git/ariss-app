@@ -5,9 +5,9 @@ import { getAuth } from "@clerk/express";
 export const addCategoryController = async (req: Request, res: Response) => {
   let errorMessage;
   try {
-    const { name, imageUrl } = req.body;
+    const { name, imageUrl, filePath } = req.body;
 
-    const data = { name, imageUrl };
+    const data = { name, imageUrl, filePath };
     if (!data) {
       errorMessage = "Required fields are missing";
       console.log(errorMessage);

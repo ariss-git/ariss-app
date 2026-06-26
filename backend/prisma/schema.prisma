@@ -43,6 +43,7 @@ model categories {
   id        String   @id @default(uuid())
   name      String   @unique
   imageUrl  String
+  filePath  String
   createdAt DateTime @default(now())
 
   subcategories subcategories[]
@@ -52,6 +53,7 @@ model subcategories {
   id        String   @id @default(uuid())
   name      String   @unique
   imageUrl  String
+  filePath  String
   createdAt DateTime @default(now())
 
   categoryId String?
