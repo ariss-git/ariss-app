@@ -33,10 +33,13 @@ const AddCategory = ({
   const handleAddCategory = async () => {
     setLoading(true);
     try {
-      const imageUrl = await handleImageUpload(image, "categories");
+      const { publicUrl: imageUrl, filePath } = await handleImageUpload(
+        image,
+        "categories",
+      );
       const token = await getToken();
 
-      const data = { name, imageUrl };
+      const data = { name, imageUrl, filePath };
 
       await addCategoryAPI(data, token!)
         .then(() => {

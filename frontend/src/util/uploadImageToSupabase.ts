@@ -13,5 +13,5 @@ export const handleImageUpload = async (file: File, bucketName: string) => {
 
   const { data } = supabase.storage.from(bucketName).getPublicUrl(fileName);
 
-  return data.publicUrl;
+  return { publicUrl: data.publicUrl, filePath: fileName };
 };
