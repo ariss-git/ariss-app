@@ -5,14 +5,19 @@ export const handleImageDelete = async (
   filePath: string,
 ) => {
   if (!filePath) {
+    console.warn("No file path provided, skipping image delete");
     return true;
   }
 
-  const { error } = await supabase.storage.from(bucketName).remove([filePath]);
+  const { data, error } = await supabase.storage
+    .from(bucketName)
+    .remove([filePath]);
 
   if (error) {
-    console.error("Error deleting file: ", error.message);
+    console.error("Supabase delete error:", error);
+    throw new Error(`Failed to delete image: ${error.message}`);
   }
 
-  console.log("File deleted successfully");
+  console.log("Deleted from Supabase:", data);
+  return true;
 };

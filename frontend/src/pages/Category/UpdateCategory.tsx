@@ -42,6 +42,7 @@ const UpdateCategory = ({
         .then((res: any) => {
           console.log("File path: ", res.data.category?.filePath!);
           setFilePath(res.data.category?.filePath!);
+          setName(res.data.category?.name!);
         })
         .catch((err: any) => console.log(err.message));
     } catch (error: any) {
@@ -81,7 +82,7 @@ const UpdateCategory = ({
 
   useEffect(() => {
     handleFetchFilePath();
-  }, [id]);
+  }, [onUpdateOpen]);
 
   return (
     <Dialog open={onUpdateOpen} onOpenChange={setonUpdateOpen}>

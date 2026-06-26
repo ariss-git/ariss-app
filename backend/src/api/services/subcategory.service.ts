@@ -13,6 +13,7 @@ export const addSubcategoryService = async (data: AddSubcategory) => {
     data: {
       name: data.name,
       imageUrl: data.imageUrl,
+      filePath: data.filePath,
       categoryId: data.categoryId,
     },
   });

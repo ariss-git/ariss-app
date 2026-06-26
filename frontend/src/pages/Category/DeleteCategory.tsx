@@ -50,24 +50,21 @@ const DeleteCategory = ({
     try {
       const token = await getToken();
 
-      await deleteCategoryAPI(id, token!)
-        .then(() => {
-          const res = handleImageDelete("categories", filePath);
-          console.log("Image delete response: ", res);
-          console.log("Category deleted successfully");
-        })
-        .catch((err) => console.log(err.message))
-        .finally(() => fetchAllCategories());
+      await deleteCategoryAPI(id, token!);
+      const res = await handleImageDelete("categories", filePath);
+      console.log("Image delete response: ", res);
+      console.log("Category deleted successfully");
     } catch (error: any) {
       console.log(error.message);
     } finally {
+      fetchAllCategories();
       setLoading(false);
     }
   };
 
   useEffect(() => {
     handleFetchFilePath();
-  }, [id]);
+  }, [onDeleteOpen]);
 
   return (
     <AlertDialog open={onDeleteOpen} onOpenChange={setOnDeleteOpen}>

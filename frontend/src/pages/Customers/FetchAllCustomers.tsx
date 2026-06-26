@@ -212,7 +212,7 @@ const FetchAllCustomers = () => {
               {loading ? (
                 <TableRow>
                   <TableCell
-                    colSpan={6}
+                    colSpan={13}
                     className="text-center py-10 text-zinc-400"
                   >
                     <div className="flex items-center justify-center gap-2">

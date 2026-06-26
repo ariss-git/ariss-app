@@ -5,9 +5,9 @@ import { getAuth } from "@clerk/express";
 export const addSubcategoryController = async (req: Request, res: Response) => {
   let errorMessage;
   try {
-    const { name, imageUrl, categoryId } = req.body;
+    const { name, imageUrl, filePath, categoryId } = req.body;
 
-    const data = { name, imageUrl, categoryId };
+    const data = { name, imageUrl, filePath, categoryId };
     if (!data) {
       errorMessage = "Required fields are missing";
       console.log(errorMessage);
