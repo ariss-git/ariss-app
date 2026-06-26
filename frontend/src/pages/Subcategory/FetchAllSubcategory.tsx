@@ -32,6 +32,8 @@ import { Button } from "@/components/ui/button";
 import { Filter, MoreHorizontal, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import AddSubcategory from "./AddSubcategory";
+import { Badge } from "@/components/ui/badge";
+import DeleteSubcategory from "./DeleteSubcategory";
 
 interface Subcategory {
   categories: { name: string };
@@ -44,7 +46,7 @@ interface Subcategory {
 }
 
 const tableHeadings = [
-  { id: 1, head: "Image" },
+  { id: 1, head: "" },
   { id: 2, head: "Name" },
   { id: 3, head: "Category" },
   { id: 4, head: "Created At" },
@@ -57,6 +59,8 @@ const FetchAllSubcategory = () => {
   const [search, setSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [onAddOpen, setOnAddOpen] = useState<boolean>(false);
+  const [onDeleteOpen, setOnDeleteOpen] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
 
   const itemsPerPage = 20;
 
@@ -210,8 +214,8 @@ const FetchAllSubcategory = () => {
                     <TableCell className="font-medium">{sub.name}</TableCell>
 
                     {/* Category */}
-                    <TableCell className="text-zinc-600">
-                      {sub.categories?.name ?? "—"}
+                    <TableCell align="center">
+                      <Badge>{sub.categories?.name ?? "—"}</Badge>
                     </TableCell>
 
                     {/* Created At */}
@@ -233,7 +237,14 @@ const FetchAllSubcategory = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                           <DropdownMenuItem>Update</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setId(sub.id);
+                              setOnDeleteOpen(true);
+                            }}
+                          >
+                            Delete
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
@@ -280,6 +291,14 @@ const FetchAllSubcategory = () => {
           <AddSubcategory
             onAddOpen={onAddOpen}
             setOnAddOpen={setOnAddOpen}
+            fetchAllSubcategories={handleFetchAllSubcategories}
+          />
+
+          {/* Delete Subcategory Dialog */}
+          <DeleteSubcategory
+            id={id}
+            onDeleteOpen={onDeleteOpen}
+            setOnDeleteOpen={setOnDeleteOpen}
             fetchAllSubcategories={handleFetchAllSubcategories}
           />
         </div>

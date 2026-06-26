@@ -45,7 +45,7 @@ interface Category {
 const tableHeadings = [
   {
     id: 1,
-    head: "Image",
+    head: "",
   },
   {
     id: 2,

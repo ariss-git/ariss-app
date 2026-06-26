@@ -10,8 +10,8 @@ export const fetchAllSubcategoryAPI = async (token: string) => {
   });
 };
 
-export const fetchSingleCategoryAPI = async (id: string, token: string) => {
-  return await axios.get(`${apiUrl}/stock/category/${id}`, {
+export const fetchSingleSubcategoryAPI = async (id: string, token: string) => {
+  return await axios.get(`${apiUrl}/stock/subcategory/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -29,8 +29,8 @@ export const addSubcategoryAPI = async (
   });
 };
 
-export const deleteCategoryAPI = async (id: string, token: string) => {
-  return await axios.delete(`${apiUrl}/stock/category/delete/${id}`, {
+export const deleteSubcategoryAPI = async (id: string, token: string) => {
+  return await axios.delete(`${apiUrl}/stock/subcategory/delete/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
