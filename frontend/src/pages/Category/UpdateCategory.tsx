@@ -1,4 +1,4 @@
-import { updateCategoryAPI } from "@/api/category.api";
+import { fetchSingleCategoryAPI, updateCategoryAPI } from "@/api/category.api";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { handleImageDelete } from "@/util/deleteImageFromSupabase";
 import { handleImageUpload } from "@/util/uploadImageToSupabase";
 import { getToken } from "@clerk/react";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const UpdateCategory = ({
   id,
@@ -29,19 +30,41 @@ const UpdateCategory = ({
 }) => {
   const [image, setImage] = useState<File | null>(null);
   const [name, setName] = useState<string>("");
+  const [filePath, setFilePath] = useState<string>("");
 
   const [loading, setLoading] = useState<boolean>(false);
+
+  const handleFetchFilePath = async () => {
+    setLoading(true);
+    try {
+      const token = await getToken();
+      await fetchSingleCategoryAPI(id, token!)
+        .then((res: any) => {
+          console.log("File path: ", res.data.category?.filePath!);
+          setFilePath(res.data.category?.filePath!);
+        })
+        .catch((err: any) => console.log(err.message));
+    } catch (error: any) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleUpdate = async () => {
     setLoading(true);
     try {
       const token = await getToken();
-      const imageUrl = await handleImageUpload(image, "categories");
+      const { publicUrl: imageUrl, filePath: updatedPath } =
+        await handleImageUpload(image, "categories");
 
-      const data = { name, imageUrl };
+      const data = { name, imageUrl, filePath: updatedPath };
 
       await updateCategoryAPI(id, data, token!)
-        .then(() => console.log("Category updated successfully"))
+        .then(() => {
+          handleImageDelete("categories", filePath);
+          console.log("Category updated successfully");
+        })
         .catch((err) => console.log(err.message))
         .finally(() => fetchAllCategories());
 
@@ -55,6 +78,10 @@ const UpdateCategory = ({
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    handleFetchFilePath();
+  }, [id]);
 
   return (
     <Dialog open={onUpdateOpen} onOpenChange={setonUpdateOpen}>

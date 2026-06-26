@@ -6,6 +6,7 @@ export type AddCategory = {
 export type UpdateCategory = {
   name: string;
   imageUrl: string;
+  filePath: string;
 };
 
 export type AddSubcategory = {

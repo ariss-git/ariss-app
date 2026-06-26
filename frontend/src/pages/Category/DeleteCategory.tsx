@@ -28,7 +28,7 @@ const DeleteCategory = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [filePath, setFilePath] = useState<string>("");
 
-  const handleFetchImageUrl = async () => {
+  const handleFetchFilePath = async () => {
     setLoading(true);
     try {
       const token = await getToken();
@@ -66,7 +66,7 @@ const DeleteCategory = ({
   };
 
   useEffect(() => {
-    handleFetchImageUrl();
+    handleFetchFilePath();
   }, [id]);
 
   return (

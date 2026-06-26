@@ -27,17 +27,21 @@ export const addCategoryAPI = async (data: AddCategory, token: string) => {
 };
 
 export const deleteCategoryAPI = async (id: string, token: string) => {
-  return await axios.delete(`${apiUrl}/stock/category/delete/${id}` , {
+  return await axios.delete(`${apiUrl}/stock/category/delete/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
-}
+  });
+};
 
-export const updateCategoryAPI = async (id: string, data: UpdateCategory, token: string) => {
+export const updateCategoryAPI = async (
+  id: string,
+  data: UpdateCategory,
+  token: string,
+) => {
   return await axios.put(`${apiUrl}/stock/category/update/${id}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
-}
+  });
+};
