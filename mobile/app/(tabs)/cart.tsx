@@ -1,16 +1,14 @@
 import { Stack } from 'expo-router';
-
 import { Text, View } from 'react-native';
-
-const Home = () => {
+const Cart = () => {
   return (
     <>
-      <Stack.Screen options={{ title: 'Home' }} />
+      <Stack.Screen options={{ title: 'Cart' }} />
       <View className="w-full flex-1 items-center justify-center">
-        <Text className="text-2xl font-bold">ARISS</Text>
+        <Text className="text-2xl font-bold">Cart</Text>
       </View>
     </>
   );
 };
 
-export default Home;
+export default Cart;
