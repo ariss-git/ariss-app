@@ -41,6 +41,7 @@ export const fetchAllProductsService = async () => {
       sku: true,
       usps: true,
       imageUrls: true,
+      status: true,
       filePath: true,
       subcategoryId: true,
       subcategories: {

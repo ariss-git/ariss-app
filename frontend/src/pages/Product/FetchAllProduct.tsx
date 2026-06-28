@@ -1,5 +1,7 @@
 import { fetchAllProductsAPI } from "@/api/product.api";
 import { useEffect, useState } from "react";
+import AddProduct from "./AddProduct";
+
 
 import { Input } from "@/components/ui/input";
 import {
@@ -28,7 +30,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Filter, MoreHorizontal } from "lucide-react";
+import { Filter, MoreHorizontal, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Product {
@@ -39,9 +41,9 @@ interface Product {
   label: string;
   warranty: number;
   quantity: number;
-  sku: string;
   usps: string;
   imageUrls: string[];
+  status: boolean;
   filePath: string[];
   subcategoryId: string;
   subcategories: {
@@ -55,14 +57,14 @@ interface Product {
 const tableHeadings = [
   { id: 1, head: "" },
   { id: 2, head: "Name" },
-  { id: 3, head: "SKU" },
-  { id: 4, head: "Subcategory" },
-  { id: 5, head: "Category" },
-  { id: 6, head: "Type" },
-  { id: 7, head: "Label" },
-  { id: 8, head: "Qty" },
-  { id: 9, head: "Warranty" },
-  { id: 10, head: "Actions" },
+  { id: 3, head: "Status" },
+  { id: 5, head: "Subcategory" },
+  { id: 6, head: "Category" },
+  { id: 7, head: "Type" },
+  { id: 8, head: "Label" },
+  { id: 9, head: "Qty" },
+  { id: 10, head: "Warranty" },
+  { id: 11, head: "Actions" },
 ];
 
 const FetchAllProduct = () => {
@@ -71,12 +73,13 @@ const FetchAllProduct = () => {
   const [search, setSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  const [addOpen, setAddOpen] = useState<boolean>(false);
+
   const itemsPerPage = 20;
 
   const filteredProducts = products.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.sku.toLowerCase().includes(search.toLowerCase()) ||
       p.type.toLowerCase().includes(search.toLowerCase()) ||
       p.label.toLowerCase().includes(search.toLowerCase()) ||
       p.subcategories?.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -123,6 +126,14 @@ const FetchAllProduct = () => {
         />
 
         <div className="flex justify-end items-end w-full lg:gap-x-4">
+          <Button
+            onClick={() => {
+              setAddOpen(true);
+            }}
+          >
+            <PlusCircle size={8} /> Product
+          </Button>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
@@ -206,9 +217,17 @@ const FetchAllProduct = () => {
                       {product.name}
                     </TableCell>
 
-                    {/* SKU */}
-                    <TableCell className="text-zinc-500 whitespace-nowrap">
-                      {product.sku}
+                    {/* Status */}
+                    <TableCell className="whitespace-nowrap">
+                      {product.status ? (
+                        <Badge className="bg-green-500 hover:bg-green-500">
+                          Active
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-red-500 hover:bg-red-500">
+                          Inactive
+                        </Badge>
+                      )}
                     </TableCell>
 
                     {/* Subcategory */}
@@ -258,7 +277,7 @@ const FetchAllProduct = () => {
                             <DropdownMenuGroup>
                               <DropdownMenuItem>Approve</DropdownMenuItem>
                               <DropdownMenuItem>Disapprove</DropdownMenuItem>
-                              <DropdownMenuItem>Update</DropdownMenuItem>
+                              <DropdownMenuItem>View & Update</DropdownMenuItem>
                               <DropdownMenuItem>Delete</DropdownMenuItem>
                             </DropdownMenuGroup>
                           </DropdownMenuContent>
@@ -305,6 +324,11 @@ const FetchAllProduct = () => {
           )}
         </div>
       </div>
+      <AddProduct
+        addOnOpen={addOpen}
+        setOnAddOpen={setAddOpen}
+        fetchAllProducts={handleFetchAllProducts}
+      />
     </div>
   );
 };
