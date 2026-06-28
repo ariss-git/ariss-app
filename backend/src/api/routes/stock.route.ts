@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as categoryControllers from "../controllers/category.controller";
 import * as subcategoryControllers from "../controllers/subcategory.controller";
+import * as productControllers from "../controllers/product.controller";
 
 const stockRouter = Router();
 
@@ -48,5 +49,7 @@ stockRouter.delete(
   "/subcategory/delete/:id",
   subcategoryControllers.deleteSubcategoryController,
 );
+
+stockRouter.post("/product/add", productControllers.addProductController);
 
 export default stockRouter;
