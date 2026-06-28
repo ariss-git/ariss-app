@@ -58,6 +58,27 @@ model subcategories {
 
   categoryId String?
   categories categories? @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  products products[]
+}
+
+model products {
+  id          String   @id @default(uuid())
+  name        String
+  description Json
+  type        String
+  label       String
+  warranty    Int
+  quantity    Int
+  sku         String?
+  usps        String?
+  status      Boolean  @default(false)
+  imageUrls   String[]
+  filePath    String[]
+  createdAt   DateTime @default(now())
+
+  subcategoryId String?
+  subcategories subcategories? @relation(fields: [subcategoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 enum ArissUserType {
