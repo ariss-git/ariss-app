@@ -22,3 +22,17 @@ export type UpdateSubcategory = {
   imageUrl: string;
   categoryId: string;
 };
+
+export type AddProduct = {
+  name: string;
+  description: string;
+  sku: string;
+  type: string;
+  label: string;
+  warranty: number;
+  quantity: number;
+  usps: string;
+  imageUrls: string[];
+  filePath: string[];
+  subcategoryId: string;
+};

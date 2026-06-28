@@ -1,0 +1,29 @@
+import prisma from "../../lib/orm";
+import { AddProduct } from "../../types/stock.type";
+
+export const addProductService = async (data: AddProduct) => {
+  const existing = await prisma.products.findUnique({
+    where: {
+      name: data.name,
+    },
+  });
+  if (existing) {
+    throw new Error("Product already exists");
+  }
+  const product = await prisma.products.create({
+    data: {
+      name: data.name,
+      description: data.description,
+      type: data.type,
+      label: data.label,
+      warranty: data.warranty,
+      quantity: data.quantity,
+      sku: data.sku,
+      usps: data.usps,
+      imageUrls: data.imageUrls,
+      filePath: data.filePath,
+      subcategoryId: data.subcategoryId,
+    },
+  });
+  return product;
+};

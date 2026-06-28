@@ -64,7 +64,7 @@ model subcategories {
 
 model products {
   id          String   @id @default(uuid())
-  name        String
+  name        String   @unique
   description Json
   type        String
   label       String
