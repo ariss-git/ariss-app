@@ -59,7 +59,7 @@ export const fetchAllProductsController = async (
 ) => {
   try {
     const products = await productServices.fetchAllProductsService();
-    return res.status(200).json({ products });
+    return res.status(200).json({ total: products.length, products });
   } catch (error: any) {
     console.log(error.message);
     return res.status(400).json({ error: error.message });
