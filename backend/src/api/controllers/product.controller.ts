@@ -52,3 +52,16 @@ export const addProductController = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const fetchAllProductsController = async (
+  _req: Request,
+  res: Response,
+) => {
+  try {
+    const products = await productServices.fetchAllProductsService();
+    return res.status(200).json({ products });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(400).json({ error: error.message });
+  }
+};
