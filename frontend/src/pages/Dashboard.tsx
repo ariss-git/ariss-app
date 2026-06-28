@@ -15,13 +15,17 @@ const Dashboard = () => {
         email: user?.emailAddresses[0].emailAddress!,
         profilePicUrl: user?.imageUrl! || null,
       };
-
       console.log(data);
 
-      const res = await syncClerkUserAPI(data, token!);
-      console.log(`${res.status} - User synched to database`);
+      await syncClerkUserAPI(data, token!)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err: any) => {
+          console.error(err.response.data.error);
+        });
     } catch (error: any) {
-      console.log("User already exists in database");
+      console.log("Error in sync user", error);
     }
   };
 

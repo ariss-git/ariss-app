@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as productServices from "../services/product.service";
+import { getAuth } from "@clerk/express";
 
 export const addProductController = async (req: Request, res: Response) => {
   let errorMessage;
@@ -35,6 +36,13 @@ export const addProductController = async (req: Request, res: Response) => {
       errorMessage = "Required fields are missing";
       console.log(errorMessage);
       return res.status(400).json({ error: errorMessage });
+    }
+
+    const { userId } = getAuth(req);
+    if (!userId) {
+      errorMessage = "Unauthorized: Invalid token";
+      console.log(errorMessage);
+      return res.status(401).json({ error: errorMessage });
     }
 
     const product = await productServices.addProductService(data);

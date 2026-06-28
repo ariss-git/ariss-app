@@ -27,3 +27,32 @@ export const addProductService = async (data: AddProduct) => {
   });
   return product;
 };
+
+export const fetchAllProductsService = async () => {
+  return await prisma.products.findMany({
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      type: true,
+      label: true,
+      warranty: true,
+      quantity: true,
+      sku: true,
+      usps: true,
+      imageUrls: true,
+      filePath: true,
+      subcategoryId: true,
+      subcategories: {
+        select: {
+          name: true,
+          categories: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
+};
