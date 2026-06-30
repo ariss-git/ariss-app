@@ -67,3 +67,20 @@ export const fetchAllProductsController = async (
     return res.status(400).json({ error: error.message });
   }
 };
+
+export const fetchAllProductsBySubcategoryController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const { subcategoryId } = req.params;
+
+    const products = await productServices.fetchAllProductsBySubcategoryService(
+      subcategoryId as string,
+    );
+    return res.status(200).json({ total: products.length, products });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(400).json({ error: error.message });
+  }
+};
