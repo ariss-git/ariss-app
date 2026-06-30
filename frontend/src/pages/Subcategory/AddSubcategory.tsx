@@ -66,8 +66,6 @@ const AddSubcategory = ({
 
       setName("");
       setImage(null);
-
-      setOnAddOpen(false);
     } catch (error: any) {
       console.log(error.message);
     } finally {

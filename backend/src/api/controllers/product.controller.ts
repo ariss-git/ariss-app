@@ -8,6 +8,7 @@ export const addProductController = async (req: Request, res: Response) => {
     const {
       name,
       description,
+      price,
       type,
       label,
       warranty,
@@ -22,6 +23,7 @@ export const addProductController = async (req: Request, res: Response) => {
     const data = {
       name,
       description,
+      price,
       type,
       label,
       warranty,

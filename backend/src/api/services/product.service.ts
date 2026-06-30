@@ -14,6 +14,7 @@ export const addProductService = async (data: AddProduct) => {
     data: {
       name: data.name,
       description: data.description,
+      price: data.price,
       type: data.type,
       label: data.label,
       warranty: data.warranty,
@@ -34,6 +35,7 @@ export const fetchAllProductsService = async () => {
       id: true,
       name: true,
       description: true,
+      price: true,
       type: true,
       label: true,
       warranty: true,
@@ -54,6 +56,24 @@ export const fetchAllProductsService = async () => {
           },
         },
       },
+    },
+  });
+};
+
+export const fetchAllProductsBySubcategoryService = async (
+  subcategoryId: string,
+) => {
+  return await prisma.products.findMany({
+    where: {
+      subcategoryId,
+    },
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      imageUrls: true,
+      quantity: true,
+      createdAt: true,
     },
   });
 };

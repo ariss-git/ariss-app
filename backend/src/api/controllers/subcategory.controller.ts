@@ -33,13 +33,6 @@ export const fetchAllSubcategoriesController = async (
   res: Response,
 ) => {
   try {
-    // const { userId } = getAuth(req);
-    // if (!userId) {
-    //   errorMessage = "Unauthorized: Invalid token";
-    //   console.log(errorMessage);
-    //   return res.status(401).json({ error: errorMessage });
-    // }
-
     const subcategory =
       await subcategoryServices.fetchAllSubcategoriesService();
     res.status(200).json({ total: subcategory.length, subcategory });
@@ -61,13 +54,6 @@ export const fetchSingleSubcategoryController = async (
       console.log(errorMessage);
       return res.status(400).json({ error: errorMessage });
     }
-
-    // const { userId } = getAuth(req);
-    // if (!userId) {
-    //   errorMessage = "Unauthorized: Invalid token";
-    //   console.log(errorMessage);
-    //   return res.status(401).json({ error: errorMessage });
-    // }
 
     const subcategory = await subcategoryServices.fetchSingleSubcategoryService(
       id as string,
@@ -91,13 +77,6 @@ export const fetchSubcategoryByCategoryController = async (
       console.log(errorMessage);
       return res.status(400).json({ error: errorMessage });
     }
-
-    // const { userId } = getAuth(req);
-    // if (!userId) {
-    //   errorMessage = "Unauthorized: Invalid token";
-    //   console.log(errorMessage);
-    //   return res.status(401).json({ error: errorMessage });
-    // }
 
     const subcategory =
       await subcategoryServices.fetchSubcategoryByCategoryService(
