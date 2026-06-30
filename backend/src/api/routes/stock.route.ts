@@ -51,5 +51,9 @@ stockRouter.delete(
 
 stockRouter.post("/product/add", productControllers.addProductController);
 stockRouter.get("/product/all", productControllers.fetchAllProductsController);
+stockRouter.get(
+  "/product/subcategory/:subcategoryId",
+  productControllers.fetchAllProductsBySubcategoryController,
+);
 
 export default stockRouter;
