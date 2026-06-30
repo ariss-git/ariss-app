@@ -55,5 +55,9 @@ stockRouter.get(
   "/product/subcategory/:subcategoryId",
   productControllers.fetchAllProductsBySubcategoryController,
 );
+stockRouter.get(
+  "/product/:id",
+  productControllers.fetchSingleProductController,
+);
 
 export default stockRouter;
