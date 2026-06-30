@@ -26,6 +26,7 @@ export type UpdateSubcategory = {
 export type AddProduct = {
   name: string;
   description: string;
+  price: number;
   sku: string;
   type: string;
   label: string;

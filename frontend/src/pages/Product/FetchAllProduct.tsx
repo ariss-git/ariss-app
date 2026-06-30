@@ -2,7 +2,6 @@ import { fetchAllProductsAPI } from "@/api/product.api";
 import { useEffect, useState } from "react";
 import AddProduct from "./AddProduct";
 
-
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -37,8 +36,7 @@ interface Product {
   id: string;
   name: string;
   description: string;
-  type: string;
-  label: string;
+  price: string;
   warranty: number;
   quantity: number;
   usps: string;
@@ -58,11 +56,10 @@ const tableHeadings = [
   { id: 1, head: "" },
   { id: 2, head: "Name" },
   { id: 3, head: "Status" },
+  { id: 4, head: "Price" },
   { id: 5, head: "Subcategory" },
   { id: 6, head: "Category" },
-  { id: 7, head: "Type" },
-  { id: 8, head: "Label" },
-  { id: 9, head: "Qty" },
+  { id: 9, head: "Counts" },
   { id: 10, head: "Warranty" },
   { id: 11, head: "Actions" },
 ];
@@ -80,8 +77,6 @@ const FetchAllProduct = () => {
   const filteredProducts = products.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.type.toLowerCase().includes(search.toLowerCase()) ||
-      p.label.toLowerCase().includes(search.toLowerCase()) ||
       p.subcategories?.name.toLowerCase().includes(search.toLowerCase()) ||
       p.subcategories?.categories?.name
         .toLowerCase()
@@ -230,9 +225,14 @@ const FetchAllProduct = () => {
                       )}
                     </TableCell>
 
+                    {/* Price */}
+                    <TableCell className="font-medium text-left whitespace-nowrap">
+                      {product.price}
+                    </TableCell>
+
                     {/* Subcategory */}
                     <TableCell align="center">
-                      <Badge variant="secondary">
+                      <Badge className="opacity-50">
                         {product.subcategories?.name ?? "—"}
                       </Badge>
                     </TableCell>
@@ -244,16 +244,6 @@ const FetchAllProduct = () => {
                       </Badge>
                     </TableCell>
 
-                    {/* Type */}
-                    <TableCell className="text-zinc-600 whitespace-nowrap">
-                      {product.type}
-                    </TableCell>
-
-                    {/* Label */}
-                    <TableCell className="text-zinc-600 whitespace-nowrap">
-                      {product.label}
-                    </TableCell>
-
                     {/* Quantity */}
                     <TableCell className="text-zinc-600">
                       {product.quantity}
@@ -261,7 +251,7 @@ const FetchAllProduct = () => {
 
                     {/* Warranty */}
                     <TableCell className="text-zinc-600 whitespace-nowrap">
-                      {product.warranty} yr{product.warranty !== 1 ? "s" : ""}
+                      {product.warranty} year{product.warranty !== 1 ? "s" : ""}
                     </TableCell>
 
                     {/* Actions */}

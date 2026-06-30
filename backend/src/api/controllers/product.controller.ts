@@ -8,6 +8,7 @@ export const addProductController = async (req: Request, res: Response) => {
     const {
       name,
       description,
+      price,
       type,
       label,
       warranty,
@@ -22,6 +23,7 @@ export const addProductController = async (req: Request, res: Response) => {
     const data = {
       name,
       description,
+      price,
       type,
       label,
       warranty,
@@ -59,6 +61,40 @@ export const fetchAllProductsController = async (
 ) => {
   try {
     const products = await productServices.fetchAllProductsService();
+    return res.status(200).json({ total: products.length, products });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+export const fetchSingleProductController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const { id } = req.params;
+
+    const product = await productServices.fetchSingleProductService(
+      id as string,
+    );
+    return res.status(200).json({ product });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+export const fetchAllProductsBySubcategoryController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const { subcategoryId } = req.params;
+
+    const products = await productServices.fetchAllProductsBySubcategoryService(
+      subcategoryId as string,
+    );
     return res.status(200).json({ total: products.length, products });
   } catch (error: any) {
     console.log(error.message);

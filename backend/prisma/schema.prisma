@@ -66,6 +66,7 @@ model products {
   id          String   @id @default(uuid())
   name        String   @unique
   description String
+  price       Float
   type        String
   label       String
   warranty    Int

@@ -36,6 +36,10 @@ stockRouter.get(
   "/subcategory/:id",
   subcategoryControllers.fetchSingleSubcategoryController,
 );
+stockRouter.get(
+  "/subcategory/category/:categoryId",
+  subcategoryControllers.fetchSubcategoryByCategoryController,
+);
 stockRouter.put(
   "/subcategory/update/:id",
   subcategoryControllers.updateSubcategoryController,
@@ -47,5 +51,13 @@ stockRouter.delete(
 
 stockRouter.post("/product/add", productControllers.addProductController);
 stockRouter.get("/product/all", productControllers.fetchAllProductsController);
+stockRouter.get(
+  "/product/subcategory/:subcategoryId",
+  productControllers.fetchAllProductsBySubcategoryController,
+);
+stockRouter.get(
+  "/product/:id",
+  productControllers.fetchSingleProductController,
+);
 
 export default stockRouter;
