@@ -36,6 +36,10 @@ stockRouter.get(
   "/subcategory/:id",
   subcategoryControllers.fetchSingleSubcategoryController,
 );
+stockRouter.get(
+  "/subcategory/category/:categoryId",
+  subcategoryControllers.fetchSubcategoryByCategoryController,
+);
 stockRouter.put(
   "/subcategory/update/:id",
   subcategoryControllers.updateSubcategoryController,
