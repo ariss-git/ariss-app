@@ -60,6 +60,24 @@ export const fetchAllProductsService = async () => {
   });
 };
 
+export const fetchSingleProductService = async (id: string) => {
+  return await prisma.products.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      imageUrls: true,
+      price: true,
+      createdAt: true,
+      warranty: true,
+      quantity: true,
+    },
+  });
+};
+
 export const fetchAllProductsBySubcategoryService = async (
   subcategoryId: string,
 ) => {
