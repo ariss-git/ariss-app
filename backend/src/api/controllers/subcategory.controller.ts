@@ -103,7 +103,7 @@ export const fetchSubcategoryByCategoryController = async (
       await subcategoryServices.fetchSubcategoryByCategoryService(
         categoryId as string,
       );
-    res.status(200).json({ subcategory });
+    res.status(200).json({ total: subcategory.length, subcategory });
   } catch (error: any) {
     console.log(error.message);
   }
