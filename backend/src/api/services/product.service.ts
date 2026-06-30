@@ -66,6 +66,7 @@ export const fetchAllProductsBySubcategoryService = async (
   return await prisma.products.findMany({
     where: {
       subcategoryId,
+      status: true,
     },
     select: {
       id: true,
@@ -74,6 +75,9 @@ export const fetchAllProductsBySubcategoryService = async (
       imageUrls: true,
       quantity: true,
       createdAt: true,
+    },
+    orderBy: {
+      createdAt: "asc",
     },
   });
 };
