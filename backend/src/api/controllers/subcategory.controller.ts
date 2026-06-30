@@ -78,6 +78,37 @@ export const fetchSingleSubcategoryController = async (
   }
 };
 
+export const fetchSubcategoryByCategoryController = async (
+  req: Request,
+  res: Response,
+) => {
+  let errorMessage;
+  try {
+    const { categoryId } = req.params;
+
+    if (!categoryId) {
+      errorMessage = "Required category param is missing";
+      console.log(errorMessage);
+      return res.status(400).json({ error: errorMessage });
+    }
+
+    // const { userId } = getAuth(req);
+    // if (!userId) {
+    //   errorMessage = "Unauthorized: Invalid token";
+    //   console.log(errorMessage);
+    //   return res.status(401).json({ error: errorMessage });
+    // }
+
+    const subcategory =
+      await subcategoryServices.fetchSubcategoryByCategoryService(
+        categoryId as string,
+      );
+    res.status(200).json({ subcategory });
+  } catch (error: any) {
+    console.log(error.message);
+  }
+};
+
 export const updateSubcategoryController = async (
   req: Request,
   res: Response,

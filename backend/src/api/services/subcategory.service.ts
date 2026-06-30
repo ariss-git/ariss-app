@@ -47,7 +47,7 @@ export const fetchSingleSubcategoryService = async (id: string) => {
   });
 };
 
-export const fetchSubcategoryByCategory = async (categoryId: string) => {
+export const fetchSubcategoryByCategoryService = async (categoryId: string) => {
   return await prisma.subcategories.findMany({
     where: {
       categoryId,
