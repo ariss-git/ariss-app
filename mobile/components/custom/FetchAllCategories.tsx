@@ -1,10 +1,13 @@
 import { fetchAllCategoriesAPI } from '@/api/category.api';
 import type { FetchAllCategoriesType } from '@/types/category.type';
+import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, Pressable } from 'react-native';
 
 const FetchAllCategories = () => {
   const [categories, setCategories] = useState<FetchAllCategoriesType[]>([]);
+
+  const router = useRouter();
 
   const handleFetchAllCategories = async () => {
     try {
@@ -32,16 +35,25 @@ const FetchAllCategories = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 20 }}>
         {categories.map((category) => (
-          <View key={category.id} className="w-20 items-center justify-start gap-y-2">
+          <Pressable
+            key={category.id}
+            className="w-20 items-center justify-start gap-y-2"
+            onPress={() =>
+              router.push({
+                pathname: '/(stocks)/subcategories/[categoryId]',
+                params: { categoryId: category.id },
+              })
+            }>
             <Image
               source={{ uri: category.imageUrl }}
               className="h-20 w-20 rounded-full bg-gray-200"
               resizeMode="cover"
             />
+
             <Text numberOfLines={1} className="text-center text-xs text-gray-800">
               {category.name}
             </Text>
-          </View>
+          </Pressable>
         ))}
       </ScrollView>
     </View>
