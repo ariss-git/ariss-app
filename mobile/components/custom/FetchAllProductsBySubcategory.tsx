@@ -1,10 +1,13 @@
 import { fetchAllProductsBySubcategoryAPI } from '@/api/product.api';
 import type { FetchAllProductsBySubcategoryType } from '@/types/product.type';
+import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, View, Text, Image, Pressable } from 'react-native';
 
 const FetchAllProductsAccSubcategory = ({ subcategoryId }: { subcategoryId: string }) => {
   const [products, setProducts] = useState<FetchAllProductsBySubcategoryType[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,7 +44,10 @@ const FetchAllProductsAccSubcategory = ({ subcategoryId }: { subcategoryId: stri
             opacity: pressed ? 0.9 : 1,
           })}
           onPress={() => {
-            // router.push(...)
+            router.push({
+              pathname: '/(stocks)/products/[productId]',
+              params: { productId: item.id },
+            });
           }}>
           <Image
             source={{
