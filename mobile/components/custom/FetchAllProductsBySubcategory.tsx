@@ -45,7 +45,7 @@ const FetchAllProductsAccSubcategory = ({ subcategoryId }: { subcategoryId: stri
           })}
           onPress={() => {
             router.push({
-              pathname: '/(stocks)/products/[productId]',
+              pathname: '/(stocks)/products/product/[productId]',
               params: { productId: item.id },
             });
           }}>
