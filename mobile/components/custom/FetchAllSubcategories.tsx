@@ -1,10 +1,13 @@
 import { fetchAllSubcategoriesByCategory } from '@/api/subcategory.api';
 import type { FetchSubcategoriesByCategoryType } from '@/types/subcategory.api';
+import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, View, Text, Image, Pressable } from 'react-native';
 
 const FetchAllSubcategories = ({ categoryId }: { categoryId: string }) => {
   const [subcategories, setSubcategories] = useState<FetchSubcategoriesByCategoryType[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +38,12 @@ const FetchAllSubcategories = ({ categoryId }: { categoryId: string }) => {
       }}
       renderItem={({ item }) => (
         <Pressable
+          onPress={() => {
+            router.push({
+              pathname: '/(stocks)/products/[subcategoryId]',
+              params: { subcategoryId: item.id },
+            });
+          }}
           style={{
             width: '48.5%',
             backgroundColor: '#fff',
